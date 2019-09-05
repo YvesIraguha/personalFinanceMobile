@@ -16,7 +16,8 @@ class LoginScreen extends Component {
     const { navigation } = this.props;
     const token = await AsyncStorage.getItem("token");
     if (token) {
-      return navigation.navigate("Home");
+      this.setState({ appLoading: false });
+      return navigation.navigate("App");
     } else {
       this.setState({ appLoading: false });
     }
