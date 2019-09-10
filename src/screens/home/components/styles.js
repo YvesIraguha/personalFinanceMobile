@@ -2,8 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   cashContainer: {
     marginLeft: 10
@@ -23,7 +22,21 @@ const styles = StyleSheet.create({
     height: undefined,
     aspectRatio: 1,
     width: 32
-  }
+  },
+  cashFlowContainer:{
+    marginBottom:15
+  },
+expenseContainer:{
+  marginVertical:10,
+  justifyContent:"space-around"
+},
+plusIcon:{
+  width:32,
+  height:32,
+  tintColor:'rgba(0, 0, 0, 0.54)',
+  marginTop:10,
+  marginLeft:20
+}
 });
 
 export default styles;

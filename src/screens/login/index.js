@@ -20,6 +20,7 @@ class LoginScreen extends Component {
       return navigation.navigate("App");
     } else {
       this.setState({ appLoading: false });
+      return navigation.navigate("App");
     }
   };
 

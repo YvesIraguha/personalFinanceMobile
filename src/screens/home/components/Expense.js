@@ -7,7 +7,7 @@ import deleteIcon from "../../../assets/delete.png";
 export default class Expense extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container,styles.expenseContainer]}>
         <View style={[styles.container, styles.cashContainer]}>
           <Text style={styles.text}>Pants</Text>
           <Image
@@ -27,7 +27,7 @@ export default class Expense extends Component {
         <Image
           source={deleteIcon}
           resizeMode="contain"
-          style={styles.editImage}
+          style={[styles.editImage,{tintColor:'rgba(227,45,32,0.45)'}]}
         />
       </View>
     );

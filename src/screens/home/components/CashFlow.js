@@ -5,7 +5,7 @@ import editButton from "../../../assets/edit.png";
 class CashFlow extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container,styles.cashFlowContainer]}>
         <Text style={styles.text}>Cash flow</Text>
         <View style={[styles.container, styles.cashContainer]}>
           <Text style={styles.text}>50000Rwf</Text>

@@ -9,7 +9,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 30,
     lineHeight: 20
-  }
+  },
+  expensesTitle: {
+    fontSize: 14,
+    fontWeight:'500',
+    marginTop:20,
+    marginBottom: 15,
+    lineHeight: 20
+  },
+ 
 });
 
 export default styles;
