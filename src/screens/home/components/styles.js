@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
+import EStyleSheet from 'react-native-extended-stylesheet';
+const styles = EStyleSheet.create({
   container: {
     flexDirection: "row",
   },
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
     width: 15
   },
   text: {
-    fontSize: 13
+    fontSize: '13rem'
   },
   headerImage: {
     marginLeft: 5,
@@ -23,19 +24,18 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     width: 32
   },
-  cashFlowContainer:{
-    marginBottom:15
-  },
 expenseContainer:{
   marginVertical:10,
   justifyContent:"space-around"
 },
 plusIcon:{
-  width:32,
-  height:32,
+  height:undefined,
+  aspectRatio:1,
+  width:'32rem',
+  
   tintColor:'rgba(0, 0, 0, 0.54)',
   marginTop:10,
-  marginLeft:20
+  marginLeft:'20rem'
 }
 });
 

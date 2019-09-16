@@ -27,11 +27,19 @@ class Home extends Component {
   render() {
     // const { expenses: { getAllExpenses = [] } = {} } = this.props;
     return (
-      <View style={styles.container} b>
-        <Text style={styles.monthText}>August 21, 2019</Text>
-        <CashFlow />
-        <Chart/>
-        <Text style={styles.expensesTitle}>Expenses</Text>
+      <View style={{flex:1,justifyContent:'center'}}>
+  <View style={styles.container}>
+      <View style={styles.monthContainer}>
+      <Text style={styles.monthText}>August 21, 2019</Text>
+      </View>
+    <View style={styles.cashFlowContainer}>
+    <CashFlow />
+    </View>
+       <View style={styles.chartContainer}>
+       <Chart/>
+       </View>
+       <View style={styles.expensesContainer}>
+       <Text style={styles.expensesTitle}>Expenses</Text>
         <View>
           <FlatList
             data={dummyDate}
@@ -40,7 +48,11 @@ class Home extends Component {
           />
         </View>
         <AddExpense/>
+       </View>
+       
       </View>
+      </View>
+    
     );
   }
 }
