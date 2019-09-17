@@ -1,10 +1,11 @@
 import { getAccessToken } from "../services/auth";
+import { BACKEND_URL } from 'react-native-dotenv';
 import * as actions from "./actionTypes";
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import { AsyncStorage } from "react-native";
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: BACKEND_URL,
   fetchOptions: {
     credentials: "include"
   },

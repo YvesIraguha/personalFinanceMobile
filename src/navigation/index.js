@@ -8,7 +8,7 @@ const AppStack = createStackNavigator(
 );
 const AuthStack = createStackNavigator(
   { Login: LoginScreen },
-  { initialRouteName: "Login" }
+  { initialRouteName: "Login" ,headerMode:"none"}
 );
 const switchNavigator = createSwitchNavigator(
   {
