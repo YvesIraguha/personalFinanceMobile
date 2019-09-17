@@ -1,23 +1,26 @@
-import { StyleSheet } from "react-native";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-const styles = StyleSheet.create({
-  container: {
+
+const styles = EStyleSheet.create({
+  container:{
+    flex:1,
+    justifyContent:'center',
+  },
+  logoContainer: {
     justifyContent: "space-between",
     alignItems: "center"
   },
   logoImage: {
-    borderRadius: 25,
-    marginVertical: 50,
     height: undefined,
     aspectRatio: 1 / 1,
-    width: 50
+    width: '170rem'
   },
   logoText: {
     textAlign: "center",
     color: "#E32D20",
-    marginVertical: 45,
+    marginVertical: 15,
     fontWeight: "900",
-    fontSize: 36,
+    fontSize:'20rem',
     letterSpacing: -1
   }
 });

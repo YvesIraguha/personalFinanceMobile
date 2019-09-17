@@ -1,9 +1,13 @@
 import * as AppAuth from "expo-app-auth";
+import {ANDROID_CLIENT_ID,IOS_CLIENT_ID } from 'react-native-dotenv';
+import { Platform } from "react-native";
 
 const config = {
   issuer: "https://accounts.google.com",
-  clientId:
-    "287871499475-9409sb8rs2tfpc0bv2839ufmpgumfdcu.apps.googleusercontent.com",
+  clientId: Platform.select({
+            ios: IOS_CLIENT_ID,
+            android: ANDROID_CLIENT_ID
+          }),
   scopes: ["profile", "email"]
 };
 

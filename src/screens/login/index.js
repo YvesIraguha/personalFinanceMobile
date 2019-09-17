@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View, Image, ActivityIndicator, AsyncStorage } from "react-native";
-import Toast from "react-native-easy-toast";
+import { View, Image, ActivityIndicator, AsyncStorage ,Text} from "react-native";
+import Toast,{DURATION} from "react-native-easy-toast";
 import { connect } from "react-redux";
 import { authenticateUser } from "../../redux/actionsCreators";
 import LoginButton from "./components/LoginButton";
-import logo from "../../../assets/google.png";
+import logo from "../../../assets/icon.png";
 import styles from "./style";
 
 class LoginScreen extends Component {
@@ -20,7 +20,7 @@ class LoginScreen extends Component {
       return navigation.navigate("App");
     } else {
       this.setState({ appLoading: false });
-      return navigation.navigate("App");
+      return navigation.navigate("Auth");
     }
   };
 
@@ -57,20 +57,24 @@ class LoginScreen extends Component {
     const { appLoading } = this.state;
     return appLoading ? (
       <View>
-        <ActivityIndicator size="small" color="#20D6E3" />
+        <ActivityIndicator size="small" color="#20D6E3"/>
       </View>
     ) : (
       <View style={styles.container}>
-        <Image source={logo} style={styles.logoImage} />
-        <LoginButton onPress={this.handleAuthentication} />
-        {this.renderActivityIndicator()}
-        <Toast
-          ref="toast"
-          style={{ backgroundColor: "#E32D20" }}
-          position="top"
-          positionValue={200}
-        />
+          <View style={styles.logoContainer}>
+                  <Image source={logo} style={styles.logoImage} resizeMode="contain"/>
+                  <Text style={styles.logoText}>MY EXPENSE</Text>
+                  <LoginButton onPress={this.handleAuthentication} />
+                  {this.renderActivityIndicator()}
+                  <Toast
+                    ref="toast"
+                    style={{ backgroundColor: "#E32D20", marginTop:200}}
+                    position="top"
+                    positionValue={200}
+                  />
+            </View>
       </View>
+      
     );
   }
 }
