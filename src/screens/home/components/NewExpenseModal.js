@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
+import { connect } from 'react-redux';
 import cancelIcon from '../../../assets/cancel.png';
 import InputContainer from './InputContainer';
 import styles from './styles';
+import { handleExpenseCreation } from '../../../redux/createExpense';
 
 class NewExpense extends Component {
   state = { isModalVisible: true };
@@ -11,6 +13,12 @@ class NewExpense extends Component {
   _renderModal = () => {
     const { isModalVisible } = this.state;
     this.setState({ isModalVisible: !isModalVisible });
+  };
+
+  _handleNewExpense = () => {
+    const { recordNewExpense, expense } = this.props;
+    this._renderModal();
+    recordNewExpense(expense);
   };
 
   render() {
@@ -32,7 +40,7 @@ class NewExpense extends Component {
               <InputContainer title="Price" />
             </View>
             <View style={styles.saveButtonContainer}>
-              <TouchableOpacity style={styles.saveButton} onPress={this._renderModal}>
+              <TouchableOpacity style={styles.saveButton} onPress={this._handleNewExpense}>
                 <Text style={styles.saveButtonText}>Save</Text>
               </TouchableOpacity>
             </View>
@@ -43,4 +51,13 @@ class NewExpense extends Component {
   }
 }
 
-export default NewExpense;
+const mapStateToProps = expense => ({
+  expense,
+});
+const mapDispatchToProps = dispatch => ({
+  recordNewExpense: expense => dispatch(handleExpenseCreation(expense)),
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewExpense);

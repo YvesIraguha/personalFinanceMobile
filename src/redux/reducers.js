@@ -1,4 +1,4 @@
-import * as actions from "./actionTypes";
+import * as actions from './actionTypes';
 
 const initialState = {};
 
@@ -7,30 +7,38 @@ const rootReducer = (state = initialState, action) => {
     case actions.AUTHENTICATING:
       return {
         ...state,
-        authenticationInProgress: true
+        authenticationInProgress: true,
       };
     case actions.AUTHENTICATION_FAILURE:
       return {
         ...state,
         authenticationInProgress: false,
-        errorMessage: action.payload
+        errorMessage: action.payload,
       };
     case actions.AUTHENTICATION_SUCCESS:
       return {
         ...state,
         authenticationInProgress: false,
-        jwtToken: action.payload
+        jwtToken: action.payload,
       };
     case actions.CLEAR_ERROR:
       return {
         ...state,
         authenticationInProgress: false,
-        errorMessage: null
+        errorMessage: null,
       };
     case actions.FETCHED_EXPENSES:
       return {
         ...state,
-        expenses: action.payload
+        expenses: action.payload,
+      };
+    case actions.INPUT_CHANGE:
+      return {
+        ...state,
+        expense: {
+          ...state.expense,
+          ...action.payload,
+        },
       };
     default:
       return state;
