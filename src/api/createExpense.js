@@ -42,3 +42,5 @@ export const recordExpense = async ({ type, price }) => {
     throw new Error('Error is happening');
   }
 };
+
+export default recordExpense;

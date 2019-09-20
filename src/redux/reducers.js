@@ -1,6 +1,6 @@
 import * as actions from './actionTypes';
 
-const initialState = {};
+const initialState = { newExpenseModal: false };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -37,6 +37,27 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         expense: {
           ...state.expense,
+          ...action.payload,
+        },
+      };
+    case actions.NEW_EXPENSE_FAILURE:
+      return {
+        ...state,
+        expense: {
+          newExpenseFailure: true,
+          ...action.payload,
+        },
+      };
+    case actions.DISPLAY_NEW_EXPENSE_MODAL:
+      return {
+        ...state,
+        newExpenseModal: !state.newExpenseModal,
+      };
+    case actions.NEW_EXPENSE_SUCCESS:
+      return {
+        ...state,
+        expense: {
+          newExpenseSuccess: true,
           ...action.payload,
         },
       };

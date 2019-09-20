@@ -35,9 +35,11 @@ const styles = EStyleSheet.create({
     marginTop: 10,
     marginLeft: '20rem',
   },
-  cancelIcon: {
+  cancelIconContainer: {
     alignSelf: 'flex-end',
     margin: 10,
+  },
+  cancelIcon: {
     ...imageDimensions(20, 1),
     tintColor: 'rgba(0,0,0,0.54)',
   },

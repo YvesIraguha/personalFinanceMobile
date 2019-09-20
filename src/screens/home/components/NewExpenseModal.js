@@ -5,34 +5,39 @@ import { connect } from 'react-redux';
 import cancelIcon from '../../../assets/cancel.png';
 import InputContainer from './InputContainer';
 import styles from './styles';
-import { handleExpenseCreation } from '../../../redux/createExpense';
+import { handleExpenseCreation, displayNewExpenseModal } from '../../../redux/createExpense';
 
 class NewExpense extends Component {
-  state = { isModalVisible: true };
-
-  _renderModal = () => {
-    const { isModalVisible } = this.state;
-    this.setState({ isModalVisible: !isModalVisible });
+  state = {
+    isModalVisible: false,
   };
 
   _handleNewExpense = () => {
-    const { recordNewExpense, expense } = this.props;
-    this._renderModal();
+    const { recordNewExpense, expense, displayModal } = this.props;
+    displayModal();
     recordNewExpense(expense);
+  };
+
+  _renderModal = () => {
+    const { displayModal } = this.props;
+    displayModal();
   };
 
   render() {
     const { isModalVisible } = this.state;
+    const { newExpenseModal } = this.props;
     return (
       <View style={{ flex: 1 }}>
         <Modal
-          isVisible={isModalVisible}
+          isVisible={newExpenseModal}
           coverScreen
           backdropColor="rgba(151,127,127,0.5)"
           onBackdropPress={this._renderModal}
         >
           <View style={styles.nexExpenseContainer}>
-            <Image style={styles.cancelIcon} source={cancelIcon} onPress={this._renderModal} />
+            <TouchableOpacity onPress={this._renderModal} style={styles.cancelIconContainer}>
+              <Image style={styles.cancelIcon} source={cancelIcon} />
+            </TouchableOpacity>
             <Text style={styles.newExpenseTitle}>New spending</Text>
             <View style={styles.inputsContainer}>
               <InputContainer title="Type" />
@@ -51,11 +56,13 @@ class NewExpense extends Component {
   }
 }
 
-const mapStateToProps = expense => ({
+const mapStateToProps = ({ expense, newExpenseModal }) => ({
   expense,
+  newExpenseModal,
 });
 const mapDispatchToProps = dispatch => ({
   recordNewExpense: expense => dispatch(handleExpenseCreation(expense)),
+  displayModal: () => dispatch(displayNewExpenseModal()),
 });
 export default connect(
   mapStateToProps,
