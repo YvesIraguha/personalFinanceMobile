@@ -9,6 +9,7 @@ import AddExpense from './components/AddExpense';
 import NewExpense from './components/NewExpenseModal';
 import Chart from './components/Chart';
 import styles from './styles';
+import HeaderLeft from './components/HeaderLeft';
 
 const dummyDate = [
   { type: 'shoes', price: '300', id: '1' },
@@ -18,7 +19,7 @@ const dummyDate = [
 class Home extends Component {
   static navigationOptions = {
     title: 'mybudget',
-    headerLeft: <HeaderRight />,
+    headerLeft: <HeaderLeft />,
     headerRight: <HeaderRight />,
   };
   // componentDidMount = () => {
