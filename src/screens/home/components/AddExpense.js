@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, TouchableHighlight } from 'react-native';
+import { Image, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import plusIcon from '../../../assets/add.png';
 import styles from './styles';
@@ -13,9 +13,9 @@ class AddExpense extends Component {
 
   render() {
     return (
-      <TouchableHighlight onPress={this._renderModal}>
+      <TouchableWithoutFeedback onPress={this._renderModal}>
         <Image source={plusIcon} style={styles.plusIcon} resizeMode="contain" />
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
     );
   }
 }

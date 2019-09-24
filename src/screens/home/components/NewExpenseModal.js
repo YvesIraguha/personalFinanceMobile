@@ -8,10 +8,6 @@ import styles from './styles';
 import { handleExpenseCreation, displayNewExpenseModal } from '../../../redux/createExpense';
 
 class NewExpense extends Component {
-  state = {
-    isModalVisible: false,
-  };
-
   _handleNewExpense = () => {
     const { recordNewExpense, expense, displayModal } = this.props;
     displayModal();
@@ -24,7 +20,6 @@ class NewExpense extends Component {
   };
 
   render() {
-    const { isModalVisible } = this.state;
     const { newExpenseModal } = this.props;
     return (
       <View style={{ flex: 1 }}>

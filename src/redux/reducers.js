@@ -61,6 +61,14 @@ const rootReducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
+    case actions.SET_INPUT_ERROR:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          ...action.payload,
+        },
+      };
     default:
       return state;
   }
