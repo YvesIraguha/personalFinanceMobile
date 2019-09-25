@@ -1,12 +1,12 @@
-import React from "react";
-import { View } from "react-native";
-import store from "./redux/index";
-import { Provider } from "react-redux";
-import Navigation from "./navigation/index";
-
+import React from 'react';
+import { View } from 'react-native';
+import { Provider } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
-EStyleSheet.build({ 
-  $rem: 1.2
+import store from './redux/index';
+import Navigation from './navigation/index';
+
+EStyleSheet.build({
+  $rem: 1.2,
 });
 
 export default App = () => (
