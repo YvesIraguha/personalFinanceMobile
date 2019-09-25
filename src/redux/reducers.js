@@ -1,6 +1,11 @@
 import * as actions from './actionTypes';
 
-const initialState = { newExpenseModal: false };
+const initialState = {
+  newExpenseModal: false,
+  errors: {},
+  expense: { type: '', price: '' },
+  apiInProgress: 0,
+};
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -25,7 +30,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         authenticationInProgress: false,
-        errorMessage: null,
+        errors: {},
       };
     case actions.FETCHED_EXPENSES:
       return {
@@ -43,10 +48,8 @@ const rootReducer = (state = initialState, action) => {
     case actions.NEW_EXPENSE_FAILURE:
       return {
         ...state,
-        expense: {
-          newExpenseFailure: true,
-          ...action.payload,
-        },
+        newExpenseSuccess: false,
+        apiInProgress: state.apiInProgress - 1,
       };
     case actions.DISPLAY_NEW_EXPENSE_MODAL:
       return {
@@ -56,10 +59,9 @@ const rootReducer = (state = initialState, action) => {
     case actions.NEW_EXPENSE_SUCCESS:
       return {
         ...state,
-        expense: {
-          newExpenseSuccess: true,
-          ...action.payload,
-        },
+        newExpenseSuccess: true,
+        apiInProgress: state.apiInProgress - 1,
+        expense: { type: '', price: '' },
       };
     case actions.SET_INPUT_ERROR:
       return {
@@ -68,6 +70,11 @@ const rootReducer = (state = initialState, action) => {
           ...state.errors,
           ...action.payload,
         },
+      };
+    case actions.API_CALL_IN_PROGRESS:
+      return {
+        ...state,
+        apiInProgress: state.apiInProgress + 1,
       };
     default:
       return state;

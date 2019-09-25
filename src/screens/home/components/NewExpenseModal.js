@@ -6,6 +6,7 @@ import cancelIcon from '../../../assets/cancel.png';
 import InputContainer from './InputContainer';
 import styles from './styles';
 import { handleExpenseCreation, displayNewExpenseModal } from '../../../redux/createExpense';
+import { validateExpense } from '../../../helpers/validator';
 
 class NewExpense extends Component {
   _handleNewExpense = () => {
@@ -19,8 +20,21 @@ class NewExpense extends Component {
     displayModal();
   };
 
+  _displayError = () => {
+    let error = '';
+    const { errors } = this.props;
+    Object.keys(errors).map(key => {
+      if (errors[key]) {
+        error = errors[key];
+        return error;
+      }
+    });
+    return error;
+  };
+
   render() {
-    const { newExpenseModal } = this.props;
+    const { newExpenseModal, errors, expense } = this.props;
+    const isActive = validateExpense(errors, expense);
     return (
       <View style={{ flex: 1 }}>
         <Modal
@@ -34,13 +48,20 @@ class NewExpense extends Component {
               <Image style={styles.cancelIcon} source={cancelIcon} />
             </TouchableOpacity>
             <Text style={styles.newExpenseTitle}>New spending</Text>
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorMessage}>{this._displayError()}</Text>
+            </View>
             <View style={styles.inputsContainer}>
               <InputContainer title="Type" />
               <InputContainer title="Quantity" />
               <InputContainer title="Price" />
             </View>
             <View style={styles.saveButtonContainer}>
-              <TouchableOpacity style={styles.saveButton} onPress={this._handleNewExpense}>
+              <TouchableOpacity
+                style={styles.saveButton}
+                onPress={this._handleNewExpense}
+                disabled={!isActive}
+              >
                 <Text style={styles.saveButtonText}>Save</Text>
               </TouchableOpacity>
             </View>
@@ -51,9 +72,10 @@ class NewExpense extends Component {
   }
 }
 
-const mapStateToProps = ({ expense, newExpenseModal }) => ({
+const mapStateToProps = ({ expense, newExpenseModal, errors }) => ({
   expense,
   newExpenseModal,
+  errors,
 });
 const mapDispatchToProps = dispatch => ({
   recordNewExpense: expense => dispatch(handleExpenseCreation(expense)),

@@ -4,14 +4,14 @@ import styles from './styles';
 import editButton from '../../../assets/edit.png';
 import deleteIcon from '../../../assets/delete.png';
 
-export default () => (
+export default ({ title, price }) => (
   <View style={[styles.container, styles.expenseContainer]}>
     <View style={[styles.container, styles.cashContainer]}>
-      <Text style={styles.text}>Pants</Text>
+      <Text style={styles.text}>{title}</Text>
       <Image source={editButton} resizeMode="contain" style={styles.editImage} />
     </View>
     <View style={[styles.container, styles.cashContainer]}>
-      <Text style={styles.text}>2000Rwf</Text>
+      <Text style={styles.text}>{price}Rwf</Text>
       <Image source={editButton} resizeMode="contain" style={styles.editImage} />
     </View>
     <Image
