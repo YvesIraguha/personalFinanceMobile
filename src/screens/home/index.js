@@ -30,7 +30,7 @@ class Home extends Component {
   render() {
     // const { expenses: { getAllExpenses = [] } = {} } = this.props;
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
         <View style={styles.container}>
           <View style={styles.monthContainer}>
             <Text style={styles.monthText}>August 21, 2019</Text>
