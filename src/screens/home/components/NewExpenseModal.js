@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
-import Modal from 'react-native-modal';
-import { connect } from 'react-redux';
-import cancelIcon from '../../../assets/cancel.png';
-import InputContainer from './InputContainer';
-import styles from './styles';
-import { handleExpenseCreation, displayNewExpenseModal } from '../../../redux/createExpense';
-import { validateExpense } from '../../../helpers/validator';
+import React, { Component } from "react";
+import { Text, View, Image, TouchableOpacity } from "react-native";
+import Modal from "react-native-modal";
+import { connect } from "react-redux";
+import cancelIcon from "../../../assets/cancel.png";
+import InputContainer from "./InputContainer";
+import styles from "./styles";
+import {
+  handleExpenseCreation,
+  displayNewExpenseModal
+} from "../../../redux/createExpense";
+import { validateExpense } from "../../../helpers/validator";
 
 class NewExpense extends Component {
   _handleNewExpense = () => {
@@ -21,7 +24,7 @@ class NewExpense extends Component {
   };
 
   _displayError = () => {
-    let error = '';
+    let error = "";
     const { errors } = this.props;
     Object.keys(errors).map(key => {
       if (errors[key]) {
@@ -44,7 +47,10 @@ class NewExpense extends Component {
           onBackdropPress={this._renderModal}
         >
           <View style={styles.nexExpenseContainer}>
-            <TouchableOpacity onPress={this._renderModal} style={styles.cancelIconContainer}>
+            <TouchableOpacity
+              onPress={this._renderModal}
+              style={styles.cancelIconContainer}
+            >
               <Image style={styles.cancelIcon} source={cancelIcon} />
             </TouchableOpacity>
             <Text style={styles.newExpenseTitle}>New spending</Text>
@@ -75,11 +81,11 @@ class NewExpense extends Component {
 const mapStateToProps = ({ expense, newExpenseModal, errors }) => ({
   expense,
   newExpenseModal,
-  errors,
+  errors
 });
 const mapDispatchToProps = dispatch => ({
   recordNewExpense: expense => dispatch(handleExpenseCreation(expense)),
-  displayModal: () => dispatch(displayNewExpenseModal()),
+  displayModal: () => dispatch(displayNewExpenseModal())
 });
 export default connect(
   mapStateToProps,

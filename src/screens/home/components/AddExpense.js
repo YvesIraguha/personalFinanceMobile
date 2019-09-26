@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Image, TouchableWithoutFeedback } from 'react-native';
-import { connect } from 'react-redux';
-import plusIcon from '../../../assets/add.png';
-import styles from './styles';
-import { displayNewExpenseModal } from '../../../redux/createExpense';
+import React, { Component } from "react";
+import { Image, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
+import plusIcon from "../../../assets/add.png";
+import styles from "./styles";
+import { displayNewExpenseModal } from "../../../redux/createExpense";
 
 class AddExpense extends Component {
   _renderModal = () => {
@@ -13,14 +13,14 @@ class AddExpense extends Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={this._renderModal}>
+      <TouchableOpacity onPress={() => this._renderModal()}>
         <Image source={plusIcon} style={styles.plusIcon} resizeMode="contain" />
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 }
 const mapDispatchToProps = dispatch => ({
-  displayModal: () => dispatch(displayNewExpenseModal()),
+  displayModal: () => dispatch(displayNewExpenseModal())
 });
 
 export default connect(

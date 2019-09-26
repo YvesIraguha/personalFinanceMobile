@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import { Text, View, FlatList, ActivityIndicator } from 'react-native';
-import { connect } from 'react-redux';
-import { fetchExpenses } from '../../redux/actionsCreators';
-import CashFlow from './components/CashFlow';
-import HeaderRight from './components/HeaderRight';
-import Expense from './components/Expense';
-import AddExpense from './components/AddExpense';
-import NewExpense from './components/NewExpenseModal';
-import Chart from './components/Chart';
-import styles from './styles';
-import HeaderLeft from './components/HeaderLeft';
+import React, { Component } from "react";
+import { Text, View, FlatList, ActivityIndicator } from "react-native";
+import Toast from "react-native-easy-toast";
+import { connect } from "react-redux";
+import { fetchExpenses } from "../../redux/actionsCreators";
+import CashFlow from "./components/CashFlow";
+import HeaderRight from "./components/HeaderRight";
+import Expense from "./components/Expense";
+import AddExpense from "./components/AddExpense";
+import NewExpense from "./components/NewExpenseModal";
+import Chart from "./components/Chart";
+import styles from "./styles";
+import HeaderLeft from "./components/HeaderLeft";
 
-const dummyDate = [
-  { type: 'shoes', price: '300', id: '1' },
-  { type: 'iron', price: '2000', id: '2' },
-  { type: 'socks', price: '500', id: '3' },
-];
 class Home extends Component {
   static navigationOptions = {
-    title: 'mybudget',
+    title: "mybudget",
     headerLeft: <HeaderLeft />,
-    headerRight: <HeaderRight />,
+    headerRight: <HeaderRight />
   };
 
-  // componentDidMount = () => {
-  //   const { fetchExpenses } = this.props;
-  //   fetchExpenses();
-  // };
+  state = {
+    bgColor: "white"
+  };
+
+  componentDidMount = () => {
+    const { fetchExpenses } = this.props;
+    fetchExpenses();
+  };
 
   _renderActivityIndicator = () => {
     const { apiInProgress } = this.props;
@@ -39,11 +39,20 @@ class Home extends Component {
     return Indicator;
   };
 
-  render() {
-    // const { expenses: { getAllExpenses = [] } = {} } = this.props;
+  _renderToast = message => {
+    this.refs.toast.show(message, DURATION.LENGTH_LONG);
+  };
 
+  render() {
+    const { expenses: { getAllExpenses = [] } = {} } = this.props;
+    const { bgColor } = this.state;
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <Toast
+          ref="toast"
+          style={{ backgroundColor: bgColor, marginTop: 20 }}
+          position="top"
+        />
         <View style={styles.container}>
           <View style={styles.monthCashIndicatorContainer}>
             <View style={styles.monthCashContainer}>
@@ -61,14 +70,16 @@ class Home extends Component {
           </View>
           <View style={styles.expensesContainer}>
             <Text style={styles.expensesTitle}>Expenses</Text>
+            <AddExpense />
             <View>
               <FlatList
-                data={dummyDate}
-                renderItem={({ item }) => <Expense price={item.price} title={item.type} />}
+                data={getAllExpenses}
+                renderItem={({ item }) => (
+                  <Expense price={item.price} title={item.type} />
+                )}
                 keyExtractor={item => item.id}
               />
             </View>
-            <AddExpense />
           </View>
         </View>
         <NewExpense />
@@ -76,9 +87,10 @@ class Home extends Component {
     );
   }
 }
-const mapStateToProps = ({ expenses, apiInProgress }) => ({
+const mapStateToProps = ({ expenses, apiInProgress, newExpenseSuccess }) => ({
   expenses,
   apiInProgress,
+  newExpenseSuccess
 });
 export default connect(
   mapStateToProps,
