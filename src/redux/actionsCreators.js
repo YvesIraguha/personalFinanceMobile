@@ -1,28 +1,28 @@
-import { BACKEND_URL } from 'react-native-dotenv';
-import ApolloClient from 'apollo-boost';
-import gql from 'graphql-tag';
-import { AsyncStorage } from 'react-native';
-import * as actions from './actionTypes';
-import { getAccessToken } from '../services/auth';
+import { BACKEND_URL } from "react-native-dotenv";
+import ApolloClient from "apollo-boost";
+import gql from "graphql-tag";
+import { AsyncStorage } from "react-native";
+import * as actions from "./actionTypesConstants";
+import { getAccessToken } from "../services/auth";
 
 const client = new ApolloClient({
   uri: BACKEND_URL,
   fetchOptions: {
-    credentials: 'include',
+    credentials: "include"
   },
   request: async operation => {
-    const token = await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem("token");
     operation.setContext({
       headers: {
-        authorization: token || '',
-      },
+        authorization: token || ""
+      }
     });
-  },
+  }
 });
 
 const createUserQuery = gql`
-  mutation createUser($organization: String) {
-    createUser(accessToken: $organization) {
+  mutation createUser($accessToken: String) {
+    createUser(accessToken: $accessToken) {
       token
     }
   }
@@ -40,7 +40,7 @@ const getAllExpenses = gql`
 `;
 
 const clearError = () => ({
-  type: actions.CLEAR_ERROR,
+  type: actions.CLEAR_ERROR
 });
 
 export const authenticateUser = navigation => async dispatch => {
@@ -52,23 +52,23 @@ export const authenticateUser = navigation => async dispatch => {
 
     const {
       data: {
-        createUser: { token },
-      },
+        createUser: { token }
+      }
     } = await client.mutate({
       mutation: createUserQuery,
-      variables: { organization: accessToken },
+      variables: { accessToken }
     });
-    await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem("token", token);
 
     dispatch({
       type: actions.AUTHENTICATION_SUCCESS,
-      payload: { jwtToken: token },
+      payload: { jwtToken: token }
     });
-    navigation.navigate('Home');
+    navigation.navigate("Home");
   } catch (error) {
     dispatch({
       type: actions.AUTHENTICATION_FAILURE,
-      payload: 'Unable to authenticate you',
+      payload: "Unable to authenticate you"
     });
   }
 };
@@ -76,13 +76,13 @@ export const authenticateUser = navigation => async dispatch => {
 export const fetchExpenses = () => async dispatch => {
   try {
     const { data } = await client.query({
-      query: getAllExpenses,
+      query: getAllExpenses
     });
     dispatch({ type: actions.FETCHED_EXPENSES, payload: data });
   } catch (error) {
     dispatch({
       type: actions.AUTHENTICATION_FAILURE,
-      payload: 'contacted an error',
+      payload: "contacted an error"
     });
   }
 };

@@ -51,13 +51,13 @@ const styles = EStyleSheet.create({
     alignSelf: 'center',
     fontWeight: '500',
     fontSize: '15rem',
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   inputsContainer: { alignSelf: 'center', margin: 10 },
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: '10rem',
+    marginBottom: '10rem',
   },
   inputLabel: {
     fontSize: '15rem',
@@ -89,6 +89,14 @@ const styles = EStyleSheet.create({
     borderWidth: 1,
     borderRadius: 2.5,
     borderColor: '#8E20E3',
+  },
+  errorContainer: {
+    height: 20,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  errorMessage: {
+    color: 'red',
   },
 });
 

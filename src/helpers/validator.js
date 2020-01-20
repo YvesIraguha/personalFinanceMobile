@@ -16,4 +16,19 @@ export const validateInputs = (name, value) => {
   return errors;
 };
 
-export const validateExpense = expense => {};
+export const validateExpense = (errors, expense) => {
+  let isExpenseValid = true;
+  Object.keys(errors).map(key => {
+    if (errors[key]) {
+      isExpenseValid = false;
+    }
+  });
+  Object.keys(expense).map(key => {
+    if (key === 'price' && !expense[key]) {
+      isExpenseValid = false;
+    } else if (key === 'type' && !expense[key]) {
+      isExpenseValid = false;
+    }
+  });
+  return isExpenseValid;
+};
