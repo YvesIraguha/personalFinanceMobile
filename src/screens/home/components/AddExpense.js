@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Image, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
-import plusIcon from "../../../assets/add.png";
+
 import styles from "./styles";
 import { displayNewExpenseModal } from "../../../redux/createExpense";
 
@@ -13,8 +14,11 @@ class AddExpense extends Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={() => this._renderModal()}>
-        <Image source={plusIcon} style={styles.plusIcon} resizeMode="contain" />
+      <TouchableOpacity
+        onPress={() => this._renderModal()}
+        style={styles.addExpense}
+      >
+        <Ionicons name="md-add-circle" size={70} color="#3E6BBA" />
       </TouchableOpacity>
     );
   }

@@ -1,12 +1,15 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { height, width } = Dimensions.get("window");
 
 const imageDimensions = (width, aspectRatio) => ({
   height: undefined,
   aspectRatio,
   width
 });
+
 const styles = EStyleSheet.create({
   container: {
     flexDirection: "row"
@@ -135,6 +138,11 @@ const styles = EStyleSheet.create({
   },
   errorMessage: {
     color: "red"
+  },
+  addExpense: {
+    position: "absolute",
+    right: 40,
+    bottom: 30
   }
 });
 

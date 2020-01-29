@@ -35,6 +35,7 @@ const getAllExpenses = gql`
       quantity
       price
       id
+      createdAt
     }
   }
 `;
@@ -80,7 +81,6 @@ export const fetchExpenses = () => async dispatch => {
     });
     dispatch({ type: actions.FETCHED_EXPENSES, payload: data });
   } catch (error) {
-    console.log("error", error);
     dispatch({
       type: actions.AUTHENTICATION_FAILURE,
       payload: "contacted an error"
