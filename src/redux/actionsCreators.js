@@ -1,4 +1,4 @@
-import { BACKEND_URL } from "react-native-dotenv";
+import { BACKEND_URL_DEV } from "react-native-dotenv";
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import { AsyncStorage } from "react-native";
@@ -6,7 +6,7 @@ import * as actions from "./actionTypesConstants";
 import { getAccessToken } from "../services/auth";
 
 const client = new ApolloClient({
-  uri: BACKEND_URL,
+  uri: BACKEND_URL_DEV,
   fetchOptions: {
     credentials: "include"
   },
@@ -80,6 +80,7 @@ export const fetchExpenses = () => async dispatch => {
     });
     dispatch({ type: actions.FETCHED_EXPENSES, payload: data });
   } catch (error) {
+    console.log("error", error);
     dispatch({
       type: actions.AUTHENTICATION_FAILURE,
       payload: "contacted an error"

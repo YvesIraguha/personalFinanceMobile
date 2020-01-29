@@ -1,31 +1,28 @@
 import React from "react";
 import { Text, View, Image } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import styles from "./styles";
-import editButton from "../../../assets/edit.png";
-import deleteIcon from "../../../assets/delete.png";
+import expenseAvatar from "../../../assets/profile.jpg";
 
-export default ({ title, price }) => (
+export default ({ title, price, time }) => (
   <View style={[styles.container, styles.expenseContainer]}>
-    <View style={[styles.container, styles.cashContainer]}>
-      <Text style={styles.text}>{title}</Text>
+    <View style={styles.expenseAvatarContainer}>
       <Image
-        source={editButton}
+        source={expenseAvatar}
         resizeMode="contain"
-        style={styles.editImage}
+        style={styles.expenseAvatar}
       />
     </View>
-    <View style={[styles.container, styles.cashContainer]}>
-      <Text style={styles.text}>{price}Rwf</Text>
-      <Image
-        source={editButton}
-        resizeMode="contain"
-        style={styles.editImage}
-      />
+
+    <View style={styles.data}>
+      <View style={styles.description}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.price}>{price}</Text>
+      </View>
+      <View style={styles.left}>
+        <Text style={styles.time}>{time}</Text>
+        <AntDesign name="infocirlceo" size={25} color="#8E20E3" />
+      </View>
     </View>
-    <Image
-      source={deleteIcon}
-      resizeMode="contain"
-      style={[styles.editImage, { tintColor: "rgba(227,45,32,0.45)" }]}
-    />
   </View>
 );
