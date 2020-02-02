@@ -1,4 +1,4 @@
-import { BACKEND_URL } from "react-native-dotenv";
+import { BACKEND_URL_DEV } from "react-native-dotenv";
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import { AsyncStorage } from "react-native";
@@ -6,7 +6,7 @@ import * as actions from "./actionTypesConstants";
 import { getAccessToken } from "../services/auth";
 
 const client = new ApolloClient({
-  uri: BACKEND_URL,
+  uri: BACKEND_URL_DEV,
   fetchOptions: {
     credentials: "include"
   },
@@ -35,6 +35,7 @@ const getAllExpenses = gql`
       quantity
       price
       id
+      createdAt
     }
   }
 `;

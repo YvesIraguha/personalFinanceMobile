@@ -1,15 +1,6 @@
-import React, { Component } from 'react';
-import { View, Image } from 'react-native';
-import moreIcon from '../../../assets/moreIcon.png';
+import React from "react";
+import { Ionicons } from "@expo/vector-icons";
 
-import styles from './styles';
-
-export default class HeaderRight extends Component {
-  render() {
-    return (
-      <View>
-        <Image source={moreIcon} resizeMode="contain" style={styles.headerImage} />
-      </View>
-    );
-  }
-}
+export default () => (
+  <Ionicons name="md-arrow-back" size={30} style={{ marginLeft: 20 }} />
+);

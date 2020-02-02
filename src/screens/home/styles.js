@@ -1,52 +1,24 @@
-import { Dimensions } from 'react-native';
+import { Dimensions } from "react-native";
 
-import EStyleSheet from 'react-native-extended-stylesheet';
+import EStyleSheet from "react-native-extended-stylesheet";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 const styles = EStyleSheet.create({
   container: {
-    aspectRatio: 97 / 186,
-    height: undefined,
-    width: Math.round((width * 80) / 100),
-    alignSelf: 'center',
-  },
-  monthCashIndicatorContainer: {
-    flex: 39,
-    flexDirection: 'row',
-  },
-  monthCashContainer: {
-    flex: 39,
-    flexDirection: 'column',
+    width: Math.round((width * 95) / 100)
   },
   indicatorContainer: {
-    alignItems: 'center',
-  },
-  monthContainer: {
-    flex: 21,
-    justifyContent: 'center',
-  },
-  cashFlowContainer: {
-    justifyContent: 'center',
-    flex: 18,
-  },
-  chartContainer: {
-    justifyContent: 'center',
-    flex: 54,
+    alignItems: "center"
   },
   expensesContainer: {
-    justifyContent: 'center',
-    flex: 93,
+    marginTop: 10
   },
-  monthText: {
-    fontSize: '18rem',
-    lineHeight: '20rem',
-  },
-  expensesTitle: {
-    fontSize: '14rem',
-    fontWeight: '500',
-    marginBottom: 15,
-    lineHeight: '20rem',
-  },
+  sectionHeader: {
+    fontSize: "17rem",
+    lineHeight: "20rem",
+    padding: 15,
+    backgroundColor: "#fff"
+  }
 });
 
 export default styles;

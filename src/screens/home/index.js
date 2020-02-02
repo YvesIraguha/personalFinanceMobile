@@ -1,98 +1,66 @@
-import React, { Component } from "react";
-import { Text, View, FlatList, ActivityIndicator } from "react-native";
-import Toast from "react-native-easy-toast";
+import React, { useEffect } from "react";
+import { View, SectionList, Text, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import { fetchExpenses } from "../../redux/actionsCreators";
-import CashFlow from "./components/CashFlow";
-import HeaderRight from "./components/HeaderRight";
-import Expense from "./components/Expense";
-import AddExpense from "./components/AddExpense";
-import NewExpense from "./components/NewExpenseModal";
-import Chart from "./components/Chart";
 import styles from "./styles";
+import Expense from "./components/Expense";
+import normalizeData from "../../helpers/normilizeData";
+import AddExpense from "./components/AddExpense";
 import HeaderLeft from "./components/HeaderLeft";
 
-class Home extends Component {
-  static navigationOptions = {
-    title: "mybudget",
-    headerLeft: <HeaderLeft />,
-    headerRight: <HeaderRight />
-  };
-
-  state = {
-    bgColor: "white"
-  };
-
-  componentDidMount = () => {
-    const { fetchExpenses } = this.props;
-    fetchExpenses();
-  };
-
-  _renderActivityIndicator = () => {
-    const { apiInProgress } = this.props;
-    const Indicator = apiInProgress ? (
-      <View style={styles.indicatorContainer}>
-        <ActivityIndicator size="large" color="brown" />
-      </View>
-    ) : null;
-
-    return Indicator;
-  };
-
-  _renderToast = message => {
-    this.refs.toast.show(message, DURATION.LENGTH_LONG);
-  };
-
-  render() {
-    const { expenses: { getAllExpenses = [] } = {} } = this.props;
-    const { bgColor } = this.state;
-    return (
-      <View style={{ flex: 1, justifyContent: "center" }}>
-        <Toast
-          ref="toast"
-          style={{ backgroundColor: bgColor, marginTop: 20 }}
-          position="top"
-        />
-        <View style={styles.container}>
-          <View style={styles.monthCashIndicatorContainer}>
-            <View style={styles.monthCashContainer}>
-              <View style={styles.monthContainer}>
-                <Text style={styles.monthText}>August 21, 2019</Text>
-              </View>
-              <View style={styles.cashFlowContainer}>
-                <CashFlow />
-              </View>
-            </View>
-            {this._renderActivityIndicator()}
-          </View>
-          <View style={styles.chartContainer}>
-            <Chart />
-          </View>
-          <View style={styles.expensesContainer}>
-            <Text style={styles.expensesTitle}>Expenses</Text>
-            <AddExpense />
+const Home = props => {
+  useEffect(() => {
+    const { loadExpenses } = props;
+    loadExpenses();
+  });
+  const { expenses } = props;
+  return (
+    <View style={{ justifyContent: "center" }}>
+      <View style={styles.container}>
+        <View style={styles.expensesContainer}>
+          {expenses ? (
             <View>
-              <FlatList
-                data={getAllExpenses}
+              <SectionList
+                sections={normalizeData(expenses.getAllExpenses)}
                 renderItem={({ item }) => (
-                  <Expense price={item.price} title={item.type} />
+                  <Expense
+                    price={item.price}
+                    title={item.type}
+                    time={item.createdAt}
+                  />
+                )}
+                renderSectionHeader={({ section }) => (
+                  <Text style={styles.sectionHeader}>{section.title}</Text>
                 )}
                 keyExtractor={item => item.id}
               />
             </View>
-          </View>
+          ) : (
+            <ActivityIndicator size="large" color="#0000ff" />
+          )}
         </View>
-        <NewExpense />
       </View>
-    );
-  }
-}
+      <AddExpense />
+    </View>
+  );
+};
+
+Home.navigationOptions = {
+  title: "EXPENSES",
+  headerLeft: <HeaderLeft />,
+  headerRight: null
+};
+
 const mapStateToProps = ({ expenses, apiInProgress, newExpenseSuccess }) => ({
   expenses,
   apiInProgress,
   newExpenseSuccess
 });
+
+const mapDispatchToProps = dispatch => ({
+  loadExpenses: () => dispatch(fetchExpenses())
+});
 export default connect(
   mapStateToProps,
-  { fetchExpenses }
+  mapDispatchToProps
 )(Home);
