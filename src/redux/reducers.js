@@ -35,6 +35,7 @@ const rootReducer = (state = initialState, action) => {
     case actions.FETCHED_EXPENSES:
       return {
         ...state,
+        apiInProgress: state.apiInProgress - 1,
         expenses: action.payload
       };
     case actions.INPUT_CHANGE:

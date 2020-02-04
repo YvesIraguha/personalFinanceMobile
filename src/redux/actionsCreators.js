@@ -76,9 +76,11 @@ export const authenticateUser = navigation => async dispatch => {
 
 export const fetchExpenses = () => async dispatch => {
   try {
+    dispatch({ type: actions.API_CALL_IN_PROGRESS });
     const { data } = await client.query({
       query: getAllExpenses
     });
+
     dispatch({ type: actions.FETCHED_EXPENSES, payload: data });
   } catch (error) {
     dispatch({
