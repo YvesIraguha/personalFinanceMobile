@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect } from "react";
 import {
   View,
@@ -21,7 +22,7 @@ const Home = props => {
     const { loadExpenses } = props;
     loadExpenses();
   }, []);
-  const { expenses, apiInProgress } = props;
+  const { expenses, apiInProgress, navigation } = props;
 
   return (
     <View style={{ justifyContent: "center" }}>
@@ -42,6 +43,7 @@ const Home = props => {
                   price={item.price}
                   title={item.type}
                   time={item.createdAt}
+                  navigation={navigation}
                 />
               )}
               renderSectionHeader={({ section }) => (

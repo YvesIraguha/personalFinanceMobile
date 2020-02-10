@@ -2,14 +2,15 @@ import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import LoginScreen from "../screens/login";
 import HomeScreen from "../screens/home";
+import DetailsScreen from "../screens/Details";
 
 const AppStack = createStackNavigator(
-  { Home: HomeScreen },
+  { Home: HomeScreen, Details: DetailsScreen },
   { initialRouteName: "Home" }
 );
 const AuthStack = createStackNavigator(
   { Login: LoginScreen },
-  { initialRouteName: "Login", headerMode: "none" }
+  { initialRouteName: "Login" }
 );
 const switchNavigator = createSwitchNavigator(
   {
