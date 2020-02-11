@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const convertToHours = input => {
   const newDate = new Date(parseInt(input, 10));
   const hours = newDate.getHours();
@@ -11,4 +13,9 @@ export const convertToHours = input => {
 
 export const capitalizeString = input => {
   return input.charAt(0).toUpperCase() + input.slice(1);
+};
+
+export const convertToReadableDate = input => {
+  const date = moment(parseInt(input, 10)).format("MMM Do YYYY");
+  return date;
 };

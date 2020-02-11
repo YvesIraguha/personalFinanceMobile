@@ -7,7 +7,7 @@ import styles from "./styles";
 import { displayNewExpenseModal } from "../../../redux/createExpense";
 
 class AddExpense extends Component {
-  _renderModal = () => {
+  renderModal = () => {
     const { displayModal } = this.props;
     displayModal();
   };
@@ -15,10 +15,10 @@ class AddExpense extends Component {
   render() {
     return (
       <TouchableOpacity
-        onPress={() => this._renderModal()}
+        onPress={() => this.renderModal()}
         style={styles.addExpense}
       >
-        <Ionicons name="md-add-circle" size={70} color="#3E6BBA" />
+        <Ionicons name="md-add-circle" size={70} color="#009688" />
       </TouchableOpacity>
     );
   }

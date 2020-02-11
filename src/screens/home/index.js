@@ -39,12 +39,7 @@ const Home = props => {
             <SectionList
               sections={normalizeData(expenses.getAllExpenses)}
               renderItem={({ item }) => (
-                <Expense
-                  price={item.price}
-                  title={item.type}
-                  time={item.createdAt}
-                  navigation={navigation}
-                />
+                <Expense item={item} navigation={navigation} />
               )}
               renderSectionHeader={({ section }) => (
                 <Text style={styles.sectionHeader}>{section.title}</Text>

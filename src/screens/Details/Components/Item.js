@@ -5,8 +5,8 @@ import styles from "./stylesheet";
 const Item = ({ title, value }) => {
   return (
     <View style={styles.itemContainer}>
-      <Text>{title}</Text>
-      <Text>{value}</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{value}</Text>
     </View>
   );
 };

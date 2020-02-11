@@ -140,6 +140,14 @@ const styles = EStyleSheet.create({
   addExpense: {
     position: "absolute",
     right: 40,
+    shadowColor: "rgba(0,0,0,0.24)",
+    shadowOffset: {
+      width: 0,
+      height: 14
+    },
+    shadowOpacity: 1,
+    shadowRadius: 14,
+    elevation: 10,
     bottom: 15
   }
 });

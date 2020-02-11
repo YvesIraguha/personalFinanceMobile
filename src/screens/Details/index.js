@@ -1,50 +1,43 @@
 import React from "react";
-import { View, Text, ImageBackground } from "react-native";
+import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
+import { MaterialIcons } from "@expo/vector-icons";
 import imageUrl from "../../assets/profile.jpg";
 import Item from "./Components/Item";
+import styles from "./styles";
+import { convertToReadableDate } from "../../helpers/utils";
 
 export const Details = props => {
-  const { title, price } = props.navigation.state.params;
-
+  const {
+    navigation: {
+      state: {
+        params: { type: title, price, createdAt: time }
+      }
+    }
+  } = props;
   return (
     <View>
       <ImageBackground
         source={imageUrl}
-        imageStyle={{
-          height: "100%",
-          opacity: 0.6
-        }}
-        style={{
-          width: "100%",
-          marginTop: 20,
-          backgroundColor: "rgb(0,0,0)",
-          justifyContent: "flex-end",
-          height: "60%"
-        }}
+        imageStyle={styles.imageStyle}
+        style={styles.expenseImage}
       >
-        <Text
-          style={{
-            color: "white",
-            margin: 20,
-            fontSize: 24,
-            fontWeight: "600"
-          }}
-        >
-          {title}
-        </Text>
+        <Text style={styles.titleStyle}>{title}</Text>
       </ImageBackground>
-      <View style={{ height: "40%" }}>
-        {/* <Item title="Date" value={date} /> */}
-        <Item title="Price" value={price} />
-        {/* <Item title="Quantity" value={quantity} /> */}
+      <View style={styles.itemsContainer}>
+        <Item title="Date" value={convertToReadableDate(time)} />
+        <Item title="Price" value={`${price} RWF`} />
       </View>
+      <TouchableOpacity style={styles.editButton}>
+        <MaterialIcons name="edit" size={30} color="white" />
+      </TouchableOpacity>
     </View>
   );
 };
 
 Details.navigationOptions = {
-  headerTransparent: true
+  headerTransparent: true,
+  headerTintColor: "white"
 };
 const mapStateToProps = state => ({ state });
 

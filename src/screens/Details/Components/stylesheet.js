@@ -6,7 +6,11 @@ const styles = EStyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 40,
-    marginVertical: 5
+    marginVertical: 10
+  },
+  title: {
+    fontSize: 15,
+    fontWeight: "300"
   }
 });
 
