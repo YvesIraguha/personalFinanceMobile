@@ -2,10 +2,12 @@ import { Dimensions } from "react-native";
 
 import EStyleSheet from "react-native-extended-stylesheet";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 const styles = EStyleSheet.create({
   container: {
-    width: Math.round((width * 95) / 100)
+    height: Math.round((height * 90) / 100),
+    width: Math.round((width * 95) / 100),
+    marginLeft: Math.round((width * 5) / 200)
   },
   indicatorContainer: {
     alignItems: "center"
@@ -18,6 +20,16 @@ const styles = EStyleSheet.create({
     lineHeight: "20rem",
     padding: 15,
     backgroundColor: "#fff"
+  },
+
+  empty: {
+    height: undefined,
+    aspectRatio: 1 / 1,
+    width: Math.round((width * 90) / 100)
+  },
+  emptyText: {
+    textAlign: "center",
+    color: "rgba(0,0,0,0.6)"
   }
 });
 

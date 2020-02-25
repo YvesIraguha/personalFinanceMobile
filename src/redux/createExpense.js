@@ -22,7 +22,12 @@ export const handleExpenseCreation = expense => async dispatch => {
   dispatch(apiCallInProgress());
   try {
     const newExpense = await recordExpense(expense);
+
     dispatch({ type: actions.NEW_EXPENSE_SUCCESS, payload: { newExpense } });
+    dispatch({
+      type: actions.NEW_EXPENSE_COMPLETED,
+      payload: newExpense.data.createExpense
+    });
   } catch (error) {
     dispatch({
       type: actions.NEW_EXPENSE_FAILURE,

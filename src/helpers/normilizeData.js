@@ -1,15 +1,10 @@
-import moment from "moment";
+import { convertToReadableDate } from "./utils";
 
-const calculateSectionTitle = input => {
-  const date = moment(parseInt(input, 10)).format("MMM Do YYYY");
-
-  return date;
-};
 const normalizeData = data => {
   const newData = data.reduce((normalizedData, currentValue) => {
     if (!normalizedData.length) {
       const firstPart = {
-        title: calculateSectionTitle(currentValue.createdAt),
+        title: convertToReadableDate(currentValue.createdAt),
         data: [{ ...currentValue }]
       };
 
@@ -19,14 +14,14 @@ const normalizeData = data => {
     for (let i = 0; i < normalizedData.length; i += 1) {
       if (
         normalizedData[i].title ===
-        calculateSectionTitle(currentValue.createdAt)
+        convertToReadableDate(currentValue.createdAt)
       ) {
         normalizedData[i].data.push(currentValue);
         return normalizedData;
       }
     }
     const nextValue = {
-      title: calculateSectionTitle(currentValue.createdAt),
+      title: convertToReadableDate(currentValue.createdAt),
       data: [currentValue]
     };
     normalizedData.push(nextValue);

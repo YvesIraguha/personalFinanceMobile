@@ -35,6 +35,7 @@ const rootReducer = (state = initialState, action) => {
     case actions.FETCHED_EXPENSES:
       return {
         ...state,
+        apiInProgress: state.apiInProgress - 1,
         expenses: action.payload
       };
     case actions.INPUT_CHANGE:
@@ -62,6 +63,13 @@ const rootReducer = (state = initialState, action) => {
         newExpenseSuccess: true,
         apiInProgress: state.apiInProgress - 1,
         expense: { type: "", price: "" }
+      };
+    case actions.NEW_EXPENSE_COMPLETED:
+      return {
+        ...state,
+        expenses: {
+          getAllExpenses: [action.payload, ...state.expenses.getAllExpenses]
+        }
       };
     case actions.SET_INPUT_ERROR:
       return {

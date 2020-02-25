@@ -1,8 +1,6 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 
-import { StyleSheet, Dimensions } from "react-native";
-
-const { height, width } = Dimensions.get("window");
+import { StyleSheet } from "react-native";
 
 const imageDimensions = (width, aspectRatio) => ({
   height: undefined,
@@ -142,7 +140,15 @@ const styles = EStyleSheet.create({
   addExpense: {
     position: "absolute",
     right: 40,
-    bottom: 30
+    shadowColor: "rgba(0,0,0,0.24)",
+    shadowOffset: {
+      width: 0,
+      height: 14
+    },
+    shadowOpacity: 1,
+    shadowRadius: 14,
+    elevation: 10,
+    bottom: 15
   }
 });
 
