@@ -22,10 +22,10 @@ const createExpenseQuery = gql`
   mutation createExpense($type: String!, $price: Int!) {
     createExpense(type: $type, price: $price) {
       type
+      quantity
       price
-      owner {
-        firstName
-      }
+      id
+      createdAt
     }
   }
 `;

@@ -18,6 +18,10 @@ class LoginScreen extends Component {
     appLoading: true
   };
 
+  static navigationOptions = {
+    header: null
+  };
+
   componentDidMount = async () => {
     const { navigation } = this.props;
     const token = await AsyncStorage.getItem("token");

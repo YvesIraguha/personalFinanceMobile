@@ -80,7 +80,6 @@ export const fetchExpenses = () => async dispatch => {
     const { data } = await client.query({
       query: getAllExpenses
     });
-
     dispatch({ type: actions.FETCHED_EXPENSES, payload: data });
   } catch (error) {
     dispatch({

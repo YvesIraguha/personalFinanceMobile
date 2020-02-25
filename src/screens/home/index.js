@@ -23,7 +23,6 @@ const Home = props => {
     loadExpenses();
   }, []);
   const { expenses, apiInProgress, navigation } = props;
-
   return (
     <View style={{ justifyContent: "center" }}>
       <View style={styles.container}>
