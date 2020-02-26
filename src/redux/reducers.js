@@ -84,6 +84,18 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         apiInProgress: state.apiInProgress + 1
       };
+    case actions.EDIT_EXPENSE_SUCCESS:
+      return {
+        ...state,
+        editExpenseSuccess: true,
+        apiInProgress: state.apiInProgress - 1
+      };
+    case actions.EDIT_EXPENSE_FAILURE:
+      return {
+        ...state,
+        editExpenseSuccess: false,
+        apiInProgress: state.apiInProgress - 1
+      };
     default:
       return state;
   }
