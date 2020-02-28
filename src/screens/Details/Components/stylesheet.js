@@ -9,8 +9,12 @@ const styles = EStyleSheet.create({
     marginVertical: 10
   },
   title: {
-    fontSize: 15,
-    fontWeight: "300"
+    fontSize: 20,
+    marginVertical: 10,
+    fontWeight: "200"
+  },
+  value: {
+    width: 150
   }
 });
 

@@ -3,10 +3,9 @@ import EStyleSheet from "react-native-extended-stylesheet";
 const styles = EStyleSheet.create({
   expenseImage: {
     width: "100%",
-    marginTop: 20,
     backgroundColor: "rgb(0,0,0)",
     justifyContent: "flex-end",
-    height: "60%"
+    height: "55%"
   },
   imageStyle: {
     height: "100%",
@@ -18,7 +17,7 @@ const styles = EStyleSheet.create({
     fontSize: 24,
     fontWeight: "600"
   },
-  itemsContainer: { height: "40%", paddingVertical: 20 },
+  itemsContainer: { height: "40%", paddingVertical: 20, marginHorizontal: 30 },
   editButton: {
     position: "absolute",
     alignItems: "center",

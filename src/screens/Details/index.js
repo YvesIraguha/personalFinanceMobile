@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  StatusBar
+} from "react-native";
 import { connect } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import imageUrl from "../../assets/expense.jpeg";
@@ -13,7 +19,7 @@ export const Details = props => {
     navigation: {
       state: {
         params,
-        params: { type: title, price, createdAt: time }
+        params: { type: title, price, createdAt: time, quantity }
       }
     }
   } = props;
@@ -24,6 +30,7 @@ export const Details = props => {
 
   return (
     <View>
+      <StatusBar barStyle="light-content" />
       <ImageBackground
         source={imageUrl}
         imageStyle={styles.imageStyle}
@@ -33,7 +40,9 @@ export const Details = props => {
       </ImageBackground>
       <View style={styles.itemsContainer}>
         <Item title="Date" value={convertToReadableDate(time)} />
+        <Item title="Amount" value={`${price} RWF`} />
         <Item title="Price" value={`${price} RWF`} />
+        <Item title="Quantity" value={quantity || 0} />
       </View>
       <TouchableOpacity
         style={styles.editButton}
