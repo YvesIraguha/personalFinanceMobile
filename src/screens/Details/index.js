@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -7,11 +7,12 @@ import {
   StatusBar
 } from "react-native";
 import { connect } from "react-redux";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 import imageUrl from "../../assets/expense.jpeg";
 import Item from "./Components/Item";
 import styles from "./styles";
 import { convertToReadableDate } from "../../helpers/utils";
+import MoreButton from "./Components/DeleteButton";
 
 export const Details = props => {
   const {
@@ -19,7 +20,7 @@ export const Details = props => {
     navigation: {
       state: {
         params,
-        params: { type: title, price, createdAt: time, quantity }
+        params: { type: title, price, createdAt: time, quantity, id }
       }
     }
   } = props;
@@ -27,6 +28,10 @@ export const Details = props => {
   const navigateToEditScreen = () => {
     navigation.navigate("EditScreen", params);
   };
+
+  useLayoutEffect(() => {
+    navigation.setParams(id);
+  }, [id]);
 
   return (
     <View>
@@ -54,15 +59,10 @@ export const Details = props => {
   );
 };
 
-Details.navigationOptions = {
+Details.navigationOptions = ({ navigation }) => ({
   headerTransparent: true,
-  headerTintColor: "white"
-};
-const mapStateToProps = state => ({ state });
+  headerTintColor: "white",
+  headerRight: <MoreButton navigation={navigation} />
+});
 
-const mapDispatchToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Details);
+export default Details;

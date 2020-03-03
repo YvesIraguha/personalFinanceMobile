@@ -36,6 +36,16 @@ const styles = EStyleSheet.create({
     elevation: 10,
     backgroundColor: "#009688",
     bottom: 30
+  },
+  deleteButton: {
+    backgroundColor: "white",
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 30,
+    marginRight: 20,
+    marginTop: 20,
+    borderRadius: 5
   }
 });
 

@@ -30,17 +30,13 @@ const createExpenseQuery = gql`
   }
 `;
 
-// const deleteExpenseQuery = gql`
-//   mutation deletedExpense($id: String!) {
-//     deleteExpense(id) {
-//       type
-//       quantity
-//       price
-//       id
-//       createdAt
-//     }
-//   }
-// `;
+const deleteExpenseQuery = gql`
+  mutation deletedExpense($id: String!) {
+    deleteExpense(id: $id) {
+      type
+    }
+  }
+`;
 
 const editExpenseQuery = gql`
   mutation updateExpense(
@@ -69,18 +65,18 @@ export const recordExpense = async ({ type, price }) => {
     throw new Error("Error is happening");
   }
 };
-// export const deleteExpense = async id => {
-//   try {
-//     const deletedExpense = await client.mutate({
-//       mutation: deleteExpenseQuery,
-//       variables: { id }
-//     });
+export const deleteExpense = async id => {
+  try {
+    const deletedExpense = await client.mutate({
+      mutation: deleteExpenseQuery,
+      variables: { id }
+    });
 
-//     return deletedExpense;
-//   } catch (error) {
-//     throw new Error("Error is happening");
-//   }
-// };
+    return deletedExpense;
+  } catch (error) {
+    throw new Error("Error is happening");
+  }
+};
 
 export const editExpense = async ({ id, type, quantity, price }) => {
   try {

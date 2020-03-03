@@ -1,5 +1,9 @@
 import * as actions from "./actionTypesConstants";
-import { recordExpense, editExpense } from "../api/createExpense";
+import {
+  recordExpense,
+  editExpense,
+  deleteExpense
+} from "../api/createExpense";
 import { validateInputs } from "../helpers/validator";
 
 export const setInputError = (name, value) => ({
@@ -44,6 +48,19 @@ export const handleEditingExpense = expense => async dispatch => {
   } catch (error) {
     dispatch({
       type: actions.EDIT_EXPENSE_FAILURE,
+      payload: { error: error.message }
+    });
+  }
+};
+
+export const handleDeletingExpense = id => async dispatch => {
+  dispatch(apiCallInProgress());
+  try {
+    const result = await deleteExpense(id);
+    dispatch({ type: actions.DELETE_EXPENSE_SUCCESS, payload: { result } });
+  } catch (error) {
+    dispatch({
+      type: actions.DELETE_EXPENSE_FAILURE,
       payload: { error: error.message }
     });
   }
