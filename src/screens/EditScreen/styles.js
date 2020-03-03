@@ -4,7 +4,6 @@ const styles = EStyleSheet.create({
   expenseImage: {
     width: "100%",
     backgroundColor: "rgba(0,0,0,1)",
-    height: "50%",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -17,7 +16,6 @@ const styles = EStyleSheet.create({
     fontSize: 24,
     fontWeight: "600"
   },
-  itemsContainer: { height: "40%", paddingVertical: 20 },
   editButton: {
     alignItems: "center",
     justifyContent: "center",
