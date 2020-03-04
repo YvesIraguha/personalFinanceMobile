@@ -87,6 +87,15 @@ const rootReducer = (state = initialState, action) => {
     case actions.EDIT_EXPENSE_SUCCESS:
       return {
         ...state,
+        expenses: {
+          getAllExpenses: state.expenses.getAllExpenses.map(item => {
+            if (item.id === action.payload.id) {
+              return action.payload;
+            }
+            return item;
+          })
+        },
+
         editExpenseSuccess: true,
         apiInProgress: state.apiInProgress - 1
       };

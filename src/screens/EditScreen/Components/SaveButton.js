@@ -8,21 +8,22 @@ const SaveButton = props => {
   const {
     editExpense,
     navigation: {
+      navigate,
       state: { params: expense }
     }
   } = props;
-
   return (
     <Button
       style={styles.saveButton}
       title="Save"
-      onPress={() => editExpense(expense)}
+      onPress={() => editExpense(expense, navigate)}
     />
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  editExpense: expense => dispatch(handleEditingExpense(expense))
+  editExpense: (expense, navigate) =>
+    dispatch(handleEditingExpense(expense, navigate))
 });
 
 export default connect(

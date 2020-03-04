@@ -46,10 +46,11 @@ const editExpenseQuery = gql`
     $price: Int
   ) {
     updateExpense(id: $id, type: $type, quantity: $quantity, price: $price) {
-      id
       type
       quantity
       price
+      id
+      createdAt
     }
   }
 `;

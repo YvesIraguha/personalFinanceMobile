@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   StatusBar
 } from "react-native";
-import { connect } from "react-redux";
-import { MaterialIcons, Feather } from "@expo/vector-icons";
+
+import { MaterialIcons } from "@expo/vector-icons";
 import imageUrl from "../../assets/expense.jpeg";
 import Item from "./Components/Item";
 import styles from "./styles";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { Feather } from "@expo/vector-icons";
 import styles from "./stylesheet";
@@ -16,11 +16,26 @@ const MoreButton = props => {
     deleteExpense
   } = props;
 
+  const promptDeleteExpense = () => {
+    Alert.alert(
+      null,
+      "Do you want to delete this expense?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => setDisplayDeleteBtn(!displayDeleteBtn),
+          style: "cancel"
+        },
+        { text: "Delete", onPress: () => deleteExpense(id) }
+      ],
+      { cancelable: false }
+    );
+  };
   return (
     <View>
       {displayDeleteBtn ? (
         <View style={styles.deleteButton}>
-          <TouchableOpacity onPress={() => deleteExpense(id)}>
+          <TouchableOpacity onPress={() => promptDeleteExpense()}>
             <Text>Delete</Text>
           </TouchableOpacity>
         </View>

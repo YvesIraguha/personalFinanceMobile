@@ -40,11 +40,14 @@ export const handleExpenseCreation = expense => async dispatch => {
   }
 };
 
-export const handleEditingExpense = expense => async dispatch => {
+export const handleEditingExpense = (expense, navigate) => async dispatch => {
   dispatch(apiCallInProgress());
   try {
-    const result = await editExpense(expense);
-    dispatch({ type: actions.EDIT_EXPENSE_SUCCESS, payload: { result } });
+    const {
+      data: { updateExpense: result }
+    } = await editExpense(expense);
+    dispatch({ type: actions.EDIT_EXPENSE_SUCCESS, payload: result });
+    navigate("Home");
   } catch (error) {
     dispatch({
       type: actions.EDIT_EXPENSE_FAILURE,
