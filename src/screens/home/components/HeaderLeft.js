@@ -1,12 +1,17 @@
 import React from "react";
-import { TouchableOpacity, AsyncStorage } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity, Image } from "react-native";
+import profileAvatar from "../../../assets/profile.jpg";
+import styles from "./styles";
 
-const logOut = async () => {
-  await AsyncStorage.removeItem("token");
-};
+// const logOut = async () => {
+//   await AsyncStorage.removeItem("token");
+// };
 export default () => (
-  <TouchableOpacity onPress={logOut}>
-    <Ionicons name="md-arrow-back" size={30} style={{ marginLeft: 20 }} />
+  <TouchableOpacity>
+    <Image
+      source={profileAvatar}
+      resizeMode="contain"
+      style={styles.profileAvatar}
+    />
   </TouchableOpacity>
 );

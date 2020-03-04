@@ -41,6 +41,11 @@ const styles = EStyleSheet.create({
     ...imageDimensions("40rem", 1),
     borderRadius: "20rem"
   },
+  profileAvatar: {
+    marginLeft: 30,
+    ...imageDimensions("30rem", 1),
+    borderRadius: "15rem"
+  },
   data: {
     flexDirection: "row",
     paddingVertical: 5,
