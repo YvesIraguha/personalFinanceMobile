@@ -9,6 +9,7 @@ const MoreButton = props => {
   const [displayDeleteBtn, setDisplayDeleteBtn] = useState(false);
   const {
     navigation: {
+      navigate,
       state: {
         params: { id }
       }
@@ -26,7 +27,7 @@ const MoreButton = props => {
           onPress: () => setDisplayDeleteBtn(!displayDeleteBtn),
           style: "cancel"
         },
-        { text: "Delete", onPress: () => deleteExpense(id) }
+        { text: "Delete", onPress: () => deleteExpense(id, navigate) }
       ],
       { cancelable: false }
     );
@@ -55,7 +56,7 @@ const MoreButton = props => {
   );
 };
 const mapDispatchToProps = dispatch => ({
-  deleteExpense: id => dispatch(handleDeletingExpense(id))
+  deleteExpense: (id, navigate) => dispatch(handleDeletingExpense(id, navigate))
 });
 
 export default connect(

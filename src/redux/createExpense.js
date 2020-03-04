@@ -56,11 +56,18 @@ export const handleEditingExpense = (expense, navigate) => async dispatch => {
   }
 };
 
-export const handleDeletingExpense = id => async dispatch => {
+export const handleDeletingExpense = (id, navigate) => async dispatch => {
   dispatch(apiCallInProgress());
   try {
-    const result = await deleteExpense(id);
-    dispatch({ type: actions.DELETE_EXPENSE_SUCCESS, payload: { result } });
+    const {
+      data: { deleteExpense: result }
+    } = await deleteExpense(id);
+
+    dispatch({
+      type: actions.DELETE_EXPENSE_SUCCESS,
+      payload: { ...result, id }
+    });
+    navigate("Home");
   } catch (error) {
     dispatch({
       type: actions.DELETE_EXPENSE_FAILURE,

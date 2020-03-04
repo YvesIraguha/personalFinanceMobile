@@ -108,6 +108,11 @@ const rootReducer = (state = initialState, action) => {
     case actions.DELETE_EXPENSE_SUCCESS:
       return {
         ...state,
+        expenses: {
+          getAllExpenses: state.expenses.getAllExpenses.filter(
+            item => item.id !== action.payload.id
+          )
+        },
         deleteExpenseSuccess: true,
         apiInProgress: state.apiInProgress - 1
       };
