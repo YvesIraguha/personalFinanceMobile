@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import styles from "./styles";
-import expenseAvatar from "../../../assets/profile.jpg";
+import expenseAvatar from "../../../assets/expense.jpeg";
 import { capitalizeString, convertToHours } from "../../../helpers/utils";
 
 export default ({ item, navigation }) => {

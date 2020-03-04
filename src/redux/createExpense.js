@@ -1,5 +1,9 @@
 import * as actions from "./actionTypesConstants";
-import { recordExpense } from "../api/createExpense";
+import {
+  recordExpense,
+  editExpense,
+  deleteExpense
+} from "../api/createExpense";
 import { validateInputs } from "../helpers/validator";
 
 export const setInputError = (name, value) => ({
@@ -31,6 +35,42 @@ export const handleExpenseCreation = expense => async dispatch => {
   } catch (error) {
     dispatch({
       type: actions.NEW_EXPENSE_FAILURE,
+      payload: { error: error.message }
+    });
+  }
+};
+
+export const handleEditingExpense = (expense, navigate) => async dispatch => {
+  dispatch(apiCallInProgress());
+  try {
+    const {
+      data: { updateExpense: result }
+    } = await editExpense(expense);
+    dispatch({ type: actions.EDIT_EXPENSE_SUCCESS, payload: result });
+    navigate("Home");
+  } catch (error) {
+    dispatch({
+      type: actions.EDIT_EXPENSE_FAILURE,
+      payload: { error: error.message }
+    });
+  }
+};
+
+export const handleDeletingExpense = (id, navigate) => async dispatch => {
+  dispatch(apiCallInProgress());
+  try {
+    const {
+      data: { deleteExpense: result }
+    } = await deleteExpense(id);
+
+    dispatch({
+      type: actions.DELETE_EXPENSE_SUCCESS,
+      payload: { ...result, id }
+    });
+    navigate("Home");
+  } catch (error) {
+    dispatch({
+      type: actions.DELETE_EXPENSE_FAILURE,
       payload: { error: error.message }
     });
   }

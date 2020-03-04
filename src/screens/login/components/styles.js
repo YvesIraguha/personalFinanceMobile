@@ -5,16 +5,19 @@ const styles = StyleSheet.create({
     backgroundColor: "red"
   },
   loginButton: {
-    backgroundColor: "rgba(165, 200, 115,0.1)",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: "#617BE3",
     padding: 15,
-    borderRadius: 10
+    paddingHorizontal: 40,
+    marginTop: 10,
+    borderRadius: 1
   },
   loginText: {
-    color: "#8E20E3",
-    marginLeft: 5,
+    color: "#617BE3",
+    marginLeft: 10,
     fontSize: 18
   },
   loginIcon: {

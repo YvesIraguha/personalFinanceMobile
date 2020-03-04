@@ -6,7 +6,9 @@ const Item = ({ title, value }) => {
   return (
     <View style={styles.itemContainer}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.title}>{value}</Text>
+      <View style={styles.value}>
+        <Text style={styles.title}>{value}</Text>
+      </View>
     </View>
   );
 };

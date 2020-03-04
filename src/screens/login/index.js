@@ -1,16 +1,11 @@
 import React, { Component } from "react";
-import {
-  View,
-  Image,
-  ActivityIndicator,
-  AsyncStorage,
-  Text
-} from "react-native";
+import { View, Image, ActivityIndicator, AsyncStorage } from "react-native";
 import Toast, { DURATION } from "react-native-easy-toast";
 import { connect } from "react-redux";
 import { authenticateUser } from "../../redux/actionsCreators";
 import LoginButton from "./components/LoginButton";
-import logo from "../../../assets/icon.png";
+
+import personalFinance from "../../assets/undraw_personal_finance_tqcd.png";
 import styles from "./style";
 
 class LoginScreen extends Component {
@@ -72,8 +67,11 @@ class LoginScreen extends Component {
     ) : (
       <View style={styles.container}>
         <View style={styles.logoContainer}>
-          <Image source={logo} style={styles.logoImage} resizeMode="contain" />
-          <Text style={styles.logoText}>MY EXPENSE</Text>
+          <Image
+            source={personalFinance}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
           <LoginButton onPress={this.handleAuthentication} />
           {this.renderActivityIndicator()}
           <Toast

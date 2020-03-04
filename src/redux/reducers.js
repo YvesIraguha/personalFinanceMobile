@@ -84,6 +84,44 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         apiInProgress: state.apiInProgress + 1
       };
+    case actions.EDIT_EXPENSE_SUCCESS:
+      return {
+        ...state,
+        expenses: {
+          getAllExpenses: state.expenses.getAllExpenses.map(item => {
+            if (item.id === action.payload.id) {
+              return action.payload;
+            }
+            return item;
+          })
+        },
+
+        editExpenseSuccess: true,
+        apiInProgress: state.apiInProgress - 1
+      };
+    case actions.EDIT_EXPENSE_FAILURE:
+      return {
+        ...state,
+        editExpenseSuccess: false,
+        apiInProgress: state.apiInProgress - 1
+      };
+    case actions.DELETE_EXPENSE_SUCCESS:
+      return {
+        ...state,
+        expenses: {
+          getAllExpenses: state.expenses.getAllExpenses.filter(
+            item => item.id !== action.payload.id
+          )
+        },
+        deleteExpenseSuccess: true,
+        apiInProgress: state.apiInProgress - 1
+      };
+    case actions.DELETE_EXPENSE_FAILURE:
+      return {
+        ...state,
+        deleteExpenseSuccess: false,
+        apiInProgress: state.apiInProgress - 1
+      };
     default:
       return state;
   }
