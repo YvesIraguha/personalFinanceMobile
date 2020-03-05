@@ -7,10 +7,10 @@ import {
   Platform
 } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
-import imageUrl from "../../assets/expense.jpeg";
+import imageUrl from "../../../assets/expense.jpeg";
 import Item from "./Components/ExpenseProperty";
 import styles from "./styles";
-import { convertToReadableDate } from "../../helpers/utils";
+import { convertToReadableDate } from "../../../helpers/utils";
 import SaveButton from "./Components/SaveButton";
 
 const IMAGE_HEIGHT = 400;

@@ -47,7 +47,7 @@ export const handleEditingExpense = (expense, navigate) => async dispatch => {
       data: { updateExpense: result }
     } = await editExpense(expense);
     dispatch({ type: actions.EDIT_EXPENSE_SUCCESS, payload: result });
-    navigate("Home");
+    navigate("Expenses");
   } catch (error) {
     dispatch({
       type: actions.EDIT_EXPENSE_FAILURE,
@@ -67,7 +67,7 @@ export const handleDeletingExpense = (id, navigate) => async dispatch => {
       type: actions.DELETE_EXPENSE_SUCCESS,
       payload: { ...result, id }
     });
-    navigate("Home");
+    navigate("Expenses");
   } catch (error) {
     dispatch({
       type: actions.DELETE_EXPENSE_FAILURE,

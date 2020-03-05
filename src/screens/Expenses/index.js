@@ -23,6 +23,7 @@ const Home = props => {
     loadExpenses();
   }, []);
   const { expenses, apiInProgress, navigation } = props;
+
   return (
     <View style={{ justifyContent: "center" }}>
       <View style={styles.container}>
@@ -54,11 +55,11 @@ const Home = props => {
   );
 };
 
-Home.navigationOptions = {
+Home.navigationOptions = ({ navigation }) => ({
   title: "EXPENSES",
-  headerLeft: <HeaderLeft />,
+  headerLeft: <HeaderLeft navigation={navigation} />,
   headerRight: null
-};
+});
 
 const mapStateToProps = ({ expenses, apiInProgress, newExpenseSuccess }) => ({
   expenses,

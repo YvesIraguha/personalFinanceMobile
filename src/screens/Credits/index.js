@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 
-export default class Home extends Component {
+export default class Credit extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text> Home drawer </Text>
+        <Text> Credit </Text>
       </View>
     );
   }
