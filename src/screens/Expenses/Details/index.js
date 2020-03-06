@@ -8,10 +8,10 @@ import {
 } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
-import imageUrl from "../../assets/expense.jpeg";
+import imageUrl from "../../../assets/expense.jpeg";
 import Item from "./Components/Item";
 import styles from "./styles";
-import { convertToReadableDate } from "../../helpers/utils";
+import { convertToReadableDate } from "../../../helpers/utils";
 import MoreButton from "./Components/DeleteButton";
 
 export const Details = props => {
