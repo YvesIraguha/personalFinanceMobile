@@ -12,7 +12,7 @@ export default ({ item, navigation }) => {
       <View style={styles.expenseAvatarContainer}>
         <Image
           source={expenseAvatar}
-          resizeMode="contain"
+          resizeMode="cover"
           style={styles.expenseAvatar}
         />
       </View>

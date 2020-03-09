@@ -5,10 +5,8 @@ import { connect } from "react-redux";
 import cancelIcon from "../../../assets/cancel.png";
 import InputContainer from "./InputContainer";
 import styles from "./styles";
-import {
-  handleExpenseCreation,
-  displayNewExpenseModal
-} from "../../../redux/createExpense";
+import { displayNewExpenseModal } from "../../../redux/inputHandler";
+import { handleExpenseCreation } from "../../../redux/actionsCreators/expenses";
 import { validateExpense } from "../../../helpers/validator";
 
 class NewExpense extends Component {

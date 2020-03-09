@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { TextInput } from 'react-native';
-import { connect } from 'react-redux';
-import styles from './styles';
-import { handleInputChange } from '../../../redux/createExpense.js';
+import React, { Component } from "react";
+import { TextInput } from "react-native";
+import { connect } from "react-redux";
+import styles from "./styles";
+import { handleInputChange } from "../../../redux/inputHandler";
 
 class Input extends Component {
   _handleOnChangeInput = value => {
@@ -22,7 +22,7 @@ class Input extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  inputChangeHandler: (name, value) => dispatch(handleInputChange(name, value)),
+  inputChangeHandler: (name, value) => dispatch(handleInputChange(name, value))
 });
 
 export default connect(

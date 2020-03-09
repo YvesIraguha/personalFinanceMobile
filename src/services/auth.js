@@ -11,7 +11,7 @@ const config = {
   scopes: ["profile", "email"]
 };
 
-export const getAccessToken = async () => {
+export default async () => {
   const tokenResponse = await AppAuth.authAsync(config);
   return tokenResponse;
 };

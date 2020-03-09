@@ -33,6 +33,7 @@ const EditScreen = ({ navigation }) => {
           targetAmount: price,
           initialAmount,
           createdAt: time,
+          pictureUrl,
           id,
           matureDate
         }
@@ -44,6 +45,7 @@ const EditScreen = ({ navigation }) => {
       date: convertToReadableDate(time),
       maturityDate: convertToReadableDate(matureDate),
       targetAmount: `${price}`,
+      pictureUrl,
       initialAmount: `${initialAmount}`
     });
   }, []);
@@ -84,7 +86,9 @@ const EditScreen = ({ navigation }) => {
   return (
     <View style={{ paddingBottom: keyboardHeight }}>
       <ImageBackground
-        source={imageUrl}
+        source={
+          investment.pictureUrl ? { uri: investment.pictureUrl } : imageUrl
+        }
         imageStyle={styles.imageStyle}
         style={[styles.expenseImage, { height: imageHeight }]}
       >

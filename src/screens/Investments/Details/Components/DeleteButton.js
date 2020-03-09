@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { Feather } from "@expo/vector-icons";
 import styles from "./stylesheet";
-import { handleDeletingInvestment } from "../../../../redux/createExpense";
+import { handleDeletingInvestment } from "../../../../redux/actionsCreators/investments";
 
 const MoreButton = props => {
   const [displayDeleteBtn, setDisplayDeleteBtn] = useState(false);

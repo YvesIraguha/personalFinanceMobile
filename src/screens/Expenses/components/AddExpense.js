@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 
 import styles from "./styles";
-import { displayNewExpenseModal } from "../../../redux/createExpense";
+import { displayNewExpenseModal } from "../../../redux/inputHandler";
 
 class AddExpense extends Component {
   renderModal = () => {
@@ -18,7 +18,7 @@ class AddExpense extends Component {
         onPress={() => this.renderModal()}
         style={styles.addExpense}
       >
-        <Ionicons name="md-add-circle" size={70} color="#009688" />
+        <Ionicons name="ios-add" size={30} color="white" />
       </TouchableOpacity>
     );
   }

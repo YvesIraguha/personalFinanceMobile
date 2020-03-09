@@ -144,6 +144,11 @@ const styles = EStyleSheet.create({
   },
   addExpense: {
     position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 56,
+    width: 56,
+    borderRadius: 28,
     right: 40,
     shadowColor: "rgba(0,0,0,0.24)",
     shadowOffset: {
@@ -153,7 +158,8 @@ const styles = EStyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 14,
     elevation: 10,
-    bottom: 15
+    backgroundColor: "#009688",
+    bottom: 30
   }
 });
 
