@@ -122,6 +122,18 @@ const rootReducer = (state = initialState, action) => {
         deleteExpenseSuccess: false,
         apiInProgress: state.apiInProgress - 1
       };
+    case actions.FETCH_INVESTMENTS_SUCCESS:
+      return {
+        ...state,
+        apiInProgress: state.apiInProgress - 1,
+        investments: action.payload
+      };
+    case actions.FETCH_INVESTMENTS_FAILURE:
+      return {
+        ...state,
+        apiInProgress: state.apiInProgress - 1,
+        investmentsError: action.payload
+      };
     default:
       return state;
   }
