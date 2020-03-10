@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { fetchInvestments } from "../../redux/actionsCreators";
 import styles from "./styles";
-import Expense from "./components/Expense";
+import Investment from "./components/Investment";
 import normalizeData from "../../helpers/normilizeData";
 import AddInvestment from "./components/AddInvestment";
 import HeaderLeft from "./components/HeaderLeft";
@@ -40,7 +40,7 @@ const Home = props => {
             <SectionList
               sections={normalizeData(investments.getAllInvestments)}
               renderItem={({ item }) => (
-                <Expense item={item} navigation={navigation} />
+                <Investment item={item} navigation={navigation} />
               )}
               renderSectionHeader={({ section }) => (
                 <Text style={styles.sectionHeader}>{section.title}</Text>

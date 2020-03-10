@@ -2,7 +2,7 @@ import React from "react";
 import { View, TextInput } from "react-native";
 import styles from "./styles";
 
-const EditInput = ({ value, onTextChange, editable }) => {
+const EditInput = ({ value, onTextChange, editable, placeholder }) => {
   return (
     <View style={styles.editInput}>
       <TextInput
@@ -13,6 +13,7 @@ const EditInput = ({ value, onTextChange, editable }) => {
         value={value}
         maxLength={40}
         style={styles.title}
+        placeholder={placeholder}
       />
     </View>
   );

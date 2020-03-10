@@ -2,7 +2,8 @@ import * as actions from "./actionTypesConstants";
 import {
   recordExpense,
   editExpense,
-  deleteExpense
+  deleteExpense,
+  recordInvestment
 } from "../api/createExpense";
 import { validateInputs } from "../helpers/validator";
 
@@ -71,6 +72,30 @@ export const handleDeletingExpense = (id, navigate) => async dispatch => {
   } catch (error) {
     dispatch({
       type: actions.DELETE_EXPENSE_FAILURE,
+      payload: { error: error.message }
+    });
+  }
+};
+
+export const handleCreatingInvestment = (
+  investment,
+  navigate
+) => async dispatch => {
+  dispatch(apiCallInProgress());
+  try {
+    const {
+      data: { deleteExpense: result }
+    } = await recordInvestment(investment);
+
+    dispatch({
+      type: actions.RECORD_INVESTMENT_SUCCESS,
+      payload: result
+    });
+
+    navigate("Investments");
+  } catch (error) {
+    dispatch({
+      type: actions.RECORD_INVESTMENT_FAILURE,
       payload: { error: error.message }
     });
   }

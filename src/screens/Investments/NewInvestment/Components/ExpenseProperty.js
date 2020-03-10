@@ -10,7 +10,7 @@ const Item = ({
   onTextChange,
   editable,
   iconName,
-  placeHolder
+  placeholder
 }) => {
   const handleTextChange = text => {
     onTextChange(name, text);
@@ -18,10 +18,10 @@ const Item = ({
 
   return (
     <View style={styles.itemContainer}>
-      <MaterialIcons name={iconName} size={24} style={styles.fieldICon} />
+      <MaterialIcons name={iconName} size={32} style={styles.fieldICon} />
       <EditInput
         value={value}
-        placeHolder={placeHolder}
+        placeholder={placeholder}
         onTextChange={handleTextChange}
         editable={editable}
       />

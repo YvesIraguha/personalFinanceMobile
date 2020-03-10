@@ -54,6 +54,33 @@ const editExpenseQuery = gql`
     }
   }
 `;
+
+const createInvestmentQuery = gql`
+  mutation createInvestment(
+    $name: String!
+    $initialAmount: Int!
+    $targetAmount: Int!
+    $matureDate: String!
+  ) {
+    createInvestment(
+      name: $name
+      initialAmount: $initialAmount
+      targetAmount: $targetAmount
+      matureDate: $matureDate
+    ) {
+      name
+      initialAmount
+      targetAmount
+      matureDate
+      createdAt
+      owner {
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+
 export const recordExpense = async ({ type, price }) => {
   try {
     const newExpense = await client.mutate({
@@ -91,6 +118,28 @@ export const editExpense = async ({ id, type, quantity, price }) => {
       }
     });
     return editedExpense;
+  } catch (error) {
+    throw new Error("Error is happening");
+  }
+};
+
+export const recordInvestment = async ({
+  name,
+  initialAmount,
+  targetAmount,
+  matureDate
+}) => {
+  try {
+    const newInvestment = await client.mutate({
+      mutation: createInvestmentQuery,
+      variables: {
+        name,
+        initialAmount: parseInt(initialAmount, 10),
+        targetAmount: parseInt(targetAmount, 10),
+        matureDate
+      }
+    });
+    return newInvestment;
   } catch (error) {
     throw new Error("Error is happening");
   }

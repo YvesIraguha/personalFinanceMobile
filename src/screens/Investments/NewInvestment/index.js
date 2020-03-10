@@ -11,6 +11,7 @@ import imageUrl from "../../../assets/expense.jpeg";
 import Item from "./Components/ExpenseProperty";
 import styles from "./styles";
 import SaveButton from "./Components/SaveButton";
+import DateTimePicker from "./Components/DateTimePicker";
 
 const IMAGE_HEIGHT = 400;
 const IMAGE_HEIGHT_SMALL = 100;
@@ -78,26 +79,27 @@ const NewInvestmentScreen = ({ navigation }) => {
         />
         <Item
           title="Invested amount"
-          name="investedAmount"
+          name="initialAmount"
           iconName="attach-money"
-          placeHolder="Invested amount"
-          value={investment.amount}
+          placeholder="Invested amount"
+          value={investment.initialAmount}
           onTextChange={onInputChange}
         />
         <Item
           title="Target amount"
           name="targetAmount"
           iconName="money-off"
-          placeHolder="Target amount"
-          value={investment.price}
+          placeholder="Target amount"
+          value={investment.targetAmount}
           onTextChange={onInputChange}
         />
-        <Item
+        <DateTimePicker
           title="Date"
-          name="maturityDate"
+          name="matureDate"
           iconName="perm-contact-calendar"
-          placeHolder="Maturity date"
-          value={investment.date}
+          placeholder="Maturity date"
+          value={investment.matureDate}
+          onTextChange={onInputChange}
           editable={false}
         />
 
@@ -105,7 +107,7 @@ const NewInvestmentScreen = ({ navigation }) => {
           title="Location"
           name="location"
           iconName="location-on"
-          placeHolder="Location"
+          placeholder="Location"
           value={investment.quantity}
           onTextChange={onInputChange}
         />

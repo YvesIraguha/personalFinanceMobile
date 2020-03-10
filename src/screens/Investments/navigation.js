@@ -7,7 +7,7 @@ import NewInvestment from "./NewInvestment";
 
 const InvestmentStack = createStackNavigator(
   { Investments, Details: DetailsScreen, EditScreen, NewInvestment },
-  { initialRouteName: "NewInvestment" }
+  { initialRouteName: "Investments" }
 );
 
 export default InvestmentStack;
