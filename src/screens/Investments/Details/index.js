@@ -20,7 +20,14 @@ export const Details = props => {
     navigation: {
       state: {
         params,
-        params: { type: title, price, createdAt: time, quantity, id }
+        params: {
+          name: title,
+          targetAmount: price,
+          createdAt: time,
+          matureDate,
+          initialAmount,
+          id
+        }
       }
     }
   } = props;
@@ -45,9 +52,9 @@ export const Details = props => {
       </ImageBackground>
       <View style={styles.itemsContainer}>
         <Item title="Date" value={convertToReadableDate(time)} />
-        <Item title="Amount" value={`${price} RWF`} />
-        <Item title="Price" value={`${price} RWF`} />
-        <Item title="Quantity" value={quantity || 0} />
+        <Item title="Maturity date" value={convertToReadableDate(matureDate)} />
+        <Item title="Invested amount" value={`${initialAmount} RWF`} />
+        <Item title="Target amount" value={`${price} RWF`} />
       </View>
       <TouchableOpacity
         style={styles.editButton}

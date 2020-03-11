@@ -84,7 +84,7 @@ export const handleCreatingInvestment = (
   dispatch(apiCallInProgress());
   try {
     const {
-      data: { deleteExpense: result }
+      data: { createInvestment: result }
     } = await recordInvestment(investment);
 
     dispatch({

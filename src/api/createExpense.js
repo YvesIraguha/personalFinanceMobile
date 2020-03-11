@@ -68,6 +68,7 @@ const createInvestmentQuery = gql`
       targetAmount: $targetAmount
       matureDate: $matureDate
     ) {
+      id
       name
       initialAmount
       targetAmount

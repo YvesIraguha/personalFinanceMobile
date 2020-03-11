@@ -138,7 +138,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         newInvestmentSuccess: true,
-        apiInProgress: state.apiInProgress - 1
+        apiInProgress: state.apiInProgress - 1,
+        investments: {
+          getAllInvestments: [
+            action.payload,
+            ...state.investments.getAllInvestments
+          ]
+        }
       };
     case actions.RECORD_INVESTMENT_FAILURE:
       return {
