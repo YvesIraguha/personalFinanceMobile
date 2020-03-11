@@ -2,28 +2,28 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button } from "react-native";
 import styles from "./styles";
-import { handleEditingExpense } from "../../../../redux/createExpense";
+import { handleEditingInvestment } from "../../../../redux/createExpense";
 
 const SaveButton = props => {
   const {
-    editExpense,
+    editInvestment,
     navigation: {
       navigate,
-      state: { params: expense }
+      state: { params: investment }
     }
   } = props;
   return (
     <Button
       style={styles.saveButton}
       title="Save"
-      onPress={() => editExpense(expense, navigate)}
+      onPress={() => editInvestment(investment, navigate)}
     />
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  editExpense: (expense, navigate) =>
-    dispatch(handleEditingExpense(expense, navigate))
+  editInvestment: (investment, navigate) =>
+    dispatch(handleEditingInvestment(investment, navigate))
 });
 
 export default connect(

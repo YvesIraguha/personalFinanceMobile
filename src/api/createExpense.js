@@ -38,6 +38,14 @@ const deleteExpenseQuery = gql`
   }
 `;
 
+const deleteInvestmentQuery = gql`
+  mutation deletedInvestment($id: String!) {
+    deleteInvestment(id: $id) {
+      name
+    }
+  }
+`;
+
 const editExpenseQuery = gql`
   mutation updateExpense(
     $id: String!
@@ -55,6 +63,27 @@ const editExpenseQuery = gql`
   }
 `;
 
+const editInvestmentQuery = gql`
+  mutation updateInvestment(
+    $id: String!
+    $name: String
+    $initialAmount: Int
+    $targetAmount: Int
+  ) {
+    updateInvestment(
+      id: $id
+      name: $name
+      initialAmount: $initialAmount
+      targetAmount: $targetAmount
+    ) {
+      name
+      initialAmount
+      targetAmount
+      id
+      createdAt
+    }
+  }
+`;
 const createInvestmentQuery = gql`
   mutation createInvestment(
     $name: String!
@@ -146,4 +175,37 @@ export const recordInvestment = async ({
   }
 };
 
-export default recordExpense;
+export const editInvestment = async ({
+  id,
+  name,
+  initialAmount,
+  targetAmount
+}) => {
+  try {
+    const editedInvestment = await client.mutate({
+      mutation: editInvestmentQuery,
+      variables: {
+        name,
+        initialAmount: parseInt(initialAmount, 10),
+        targetAmount: parseInt(targetAmount, 10),
+        id
+      }
+    });
+    return editedInvestment;
+  } catch (error) {
+    throw new Error("Error is happening");
+  }
+};
+
+export const deleteInvestment = async id => {
+  try {
+    const deletedInvestment = await client.mutate({
+      mutation: deleteInvestmentQuery,
+      variables: { id }
+    });
+
+    return deletedInvestment;
+  } catch (error) {
+    throw new Error("Error is happening");
+  }
+};

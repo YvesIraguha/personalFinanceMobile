@@ -3,7 +3,9 @@ import {
   recordExpense,
   editExpense,
   deleteExpense,
-  recordInvestment
+  recordInvestment,
+  editInvestment,
+  deleteInvestment
 } from "../api/createExpense";
 import { validateInputs } from "../helpers/validator";
 
@@ -96,6 +98,45 @@ export const handleCreatingInvestment = (
   } catch (error) {
     dispatch({
       type: actions.RECORD_INVESTMENT_FAILURE,
+      payload: { error: error.message }
+    });
+  }
+};
+
+export const handleEditingInvestment = (
+  investment,
+  navigate
+) => async dispatch => {
+  dispatch(apiCallInProgress());
+  try {
+    const {
+      data: { updateInvestment: result }
+    } = await editInvestment(investment);
+    dispatch({ type: actions.EDIT_INVESTMENT_SUCCESS, payload: result });
+    navigate("Investments");
+  } catch (error) {
+    dispatch({
+      type: actions.EDIT_INVESTMENT_FAILURE,
+      payload: { error: error.message }
+    });
+  }
+};
+
+export const handleDeletingInvestment = (id, navigate) => async dispatch => {
+  dispatch(apiCallInProgress());
+  try {
+    const {
+      data: { deleteInvestment: result }
+    } = await deleteInvestment(id);
+
+    dispatch({
+      type: actions.DELETE_INVESTMENT_SUCCESS,
+      payload: { ...result, id }
+    });
+    navigate("Investments");
+  } catch (error) {
+    dispatch({
+      type: actions.DELETE_INVESTMENT_FAILURE,
       payload: { error: error.message }
     });
   }

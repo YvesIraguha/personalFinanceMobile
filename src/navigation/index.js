@@ -66,7 +66,7 @@ const Drawer = createDrawerNavigator(
   {
     contentComponent: props => <DrawerScreen {...props} />,
     drawerWidth: Dimensions.get("window").width * 0.85,
-    initialRouteName: "Investment"
+    initialRouteName: "Spending"
   }
 );
 

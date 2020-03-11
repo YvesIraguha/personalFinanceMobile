@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { connect } from "react-redux";
 import { Feather } from "@expo/vector-icons";
 import styles from "./stylesheet";
-import { handleDeletingExpense } from "../../../../redux/createExpense";
+import { handleDeletingInvestment } from "../../../../redux/createExpense";
 
 const MoreButton = props => {
   const [displayDeleteBtn, setDisplayDeleteBtn] = useState(false);
@@ -14,20 +14,20 @@ const MoreButton = props => {
         params: { id }
       }
     },
-    deleteExpense
+    deleteInvestment
   } = props;
 
-  const promptDeleteExpense = () => {
+  const promptDeleteInvestment = () => {
     Alert.alert(
       null,
-      "Do you want to delete this expense?",
+      "Do you want to delete this investment?",
       [
         {
           text: "Cancel",
           onPress: () => setDisplayDeleteBtn(!displayDeleteBtn),
           style: "cancel"
         },
-        { text: "Delete", onPress: () => deleteExpense(id, navigate) }
+        { text: "Delete", onPress: () => deleteInvestment(id, navigate) }
       ],
       { cancelable: false }
     );
@@ -36,7 +36,7 @@ const MoreButton = props => {
     <View>
       {displayDeleteBtn ? (
         <View style={styles.deleteButton}>
-          <TouchableOpacity onPress={() => promptDeleteExpense()}>
+          <TouchableOpacity onPress={() => promptDeleteInvestment()}>
             <Text>Delete</Text>
           </TouchableOpacity>
         </View>
@@ -56,7 +56,8 @@ const MoreButton = props => {
   );
 };
 const mapDispatchToProps = dispatch => ({
-  deleteExpense: (id, navigate) => dispatch(handleDeletingExpense(id, navigate))
+  deleteInvestment: (id, navigate) =>
+    dispatch(handleDeletingInvestment(id, navigate))
 });
 
 export default connect(

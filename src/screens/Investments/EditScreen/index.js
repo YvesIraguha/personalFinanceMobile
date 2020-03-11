@@ -20,25 +20,31 @@ const EditScreen = ({ navigation }) => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [imageHeight, setImageHeight] = useState(IMAGE_HEIGHT);
 
-  const [expense, setExpense] = useState({});
-
+  const [investment, setInvestment] = useState({});
   const onInputChange = (field, value) => {
-    setExpense({ ...expense, [field]: value });
+    setInvestment({ ...investment, [field]: value });
   };
 
   useEffect(() => {
     const {
       state: {
-        params: { type: title, price, createdAt: time, quantity, id }
+        params: {
+          name: title,
+          targetAmount: price,
+          initialAmount,
+          createdAt: time,
+          id,
+          matureDate
+        }
       }
     } = navigation;
-    setExpense({
+    setInvestment({
       id,
-      type: title,
+      name: title,
       date: convertToReadableDate(time),
-      price: `${price}`,
-      amount: "1000 Rwf",
-      quantity: `${quantity || 0}`
+      maturityDate: convertToReadableDate(matureDate),
+      targetAmount: `${price}`,
+      initialAmount: `${initialAmount}`
     });
   }, []);
 
@@ -72,8 +78,8 @@ const EditScreen = ({ navigation }) => {
   }, []);
 
   useLayoutEffect(() => {
-    navigation.setParams(expense);
-  }, [expense]);
+    navigation.setParams(investment);
+  }, [investment]);
 
   return (
     <View style={{ paddingBottom: keyboardHeight }}>
@@ -88,28 +94,33 @@ const EditScreen = ({ navigation }) => {
       </ImageBackground>
       <View style={[styles.itemsContainer]}>
         <Item
-          title="Type"
-          name="type"
-          value={expense.type}
-          onTextChange={onInputChange}
-        />
-        <Item title="Date" name="date" value={expense.date} editable={false} />
-        <Item
-          title="Amount"
-          name="amount"
-          value={expense.amount}
+          title="Name"
+          name="name"
+          value={investment.name}
           onTextChange={onInputChange}
         />
         <Item
-          title="Price"
-          name="price"
-          value={expense.price}
+          title="Date"
+          name="date"
+          value={investment.date}
+          editable={false}
+        />
+        <Item
+          title="Mature date"
+          name="maturityDate"
+          value={investment.maturityDate}
+          editable={false}
+        />
+        <Item
+          title="Initial amount"
+          name="initialAmount"
+          value={investment.initialAmount}
           onTextChange={onInputChange}
         />
         <Item
-          title="Quantity"
-          name="quantity"
-          value={expense.quantity}
+          title="Target amount"
+          name="targetAmount"
+          value={investment.targetAmount}
           onTextChange={onInputChange}
         />
       </View>
