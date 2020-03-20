@@ -6,20 +6,20 @@ import expenseAvatar from "../../../assets/expense.jpeg";
 import { capitalizeString, convertToHours } from "../../../helpers/utils";
 
 export default ({ item, navigation }) => {
-  const { type: title, price, createdAt: time } = item;
+  const { name, initialAmount, createdAt: time } = item;
   return (
     <View style={[styles.container, styles.expenseContainer]}>
       <View style={styles.expenseAvatarContainer}>
         <Image
           source={expenseAvatar}
-          resizeMode="cover"
+          resizeMode="contain"
           style={styles.expenseAvatar}
         />
       </View>
       <View style={styles.data}>
         <View style={styles.description}>
-          <Text style={styles.title}>{capitalizeString(title)}</Text>
-          <Text style={styles.price}>{price} RWF</Text>
+          <Text style={styles.title}>{capitalizeString(name)}</Text>
+          <Text style={styles.price}>{initialAmount} RWF</Text>
         </View>
         <View style={styles.left}>
           <Text style={styles.time}>{convertToHours(time)}</Text>

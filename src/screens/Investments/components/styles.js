@@ -2,6 +2,12 @@ import EStyleSheet from "react-native-extended-stylesheet";
 
 import { StyleSheet } from "react-native";
 
+const imageDimensions = (width, aspectRatio) => ({
+  height: undefined,
+  aspectRatio,
+  width
+});
+
 const styles = EStyleSheet.create({
   container: {
     flexDirection: "row"
@@ -11,19 +17,15 @@ const styles = EStyleSheet.create({
   },
   moreIcon: {
     marginLeft: 5,
-    height: undefined,
-    aspectRatio: 1,
-    width: 15
+    ...imageDimensions(15, 1)
   },
   text: {
     fontSize: "13rem"
   },
   headerImage: {
     marginLeft: 5,
-    borderRadius: 16,
-    height: undefined,
-    aspectRatio: 1,
-    width: 32
+    borderRadius: 15,
+    ...imageDimensions(32, 1)
   },
   expenseContainer: {
     flex: 13,
@@ -75,9 +77,7 @@ const styles = EStyleSheet.create({
     fontSize: 13
   },
   plusIcon: {
-    height: undefined,
-    aspectRatio: 1,
-    width: "32rem",
+    ...imageDimensions("32rem", 1),
     tintColor: "rgba(0, 0, 0, 0.54)",
     marginTop: 10,
     marginLeft: "20rem"
@@ -87,9 +87,7 @@ const styles = EStyleSheet.create({
     margin: 10
   },
   cancelIcon: {
-    height: undefined,
-    aspectRatio: 1,
-    width: 20,
+    ...imageDimensions(20, 1),
     tintColor: "rgba(0,0,0,0.54)"
   },
   nexExpenseContainer: {
@@ -118,14 +116,10 @@ const styles = EStyleSheet.create({
     marginLeft: 10,
     borderColor: "rgba(0,0,0,0.1)",
     borderWidth: "1rem",
-    height: undefined,
-    aspectRatio: 64 / 21,
-    width: "75rem"
+    ...imageDimensions("75rem", 64 / 21)
   },
   saveButton: {
-    height: undefined,
-    aspectRatio: 83 / 21,
-    width: "80rem",
+    ...imageDimensions("80rem", 83 / 21),
     backgroundColor: "#8E20E3",
     alignItems: "center",
     justifyContent: "center"
@@ -150,8 +144,13 @@ const styles = EStyleSheet.create({
   errorMessage: {
     color: "red"
   },
-  addExpense: {
+  addInvestmentBtn: {
     position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 56,
+    width: 56,
+    borderRadius: 28,
     right: 40,
     shadowColor: "rgba(0,0,0,0.24)",
     shadowOffset: {
@@ -161,7 +160,8 @@ const styles = EStyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 14,
     elevation: 10,
-    bottom: 15
+    backgroundColor: "#009688",
+    bottom: 30
   }
 });
 

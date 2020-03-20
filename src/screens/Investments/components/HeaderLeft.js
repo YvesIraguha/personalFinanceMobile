@@ -7,7 +7,7 @@ export default ({ navigation }) => (
   <TouchableOpacity onPress={navigation.openDrawer}>
     <Image
       source={profileAvatar}
-      resizeMode="cover"
+      resizeMode="contain"
       style={styles.profileAvatar}
     />
   </TouchableOpacity>

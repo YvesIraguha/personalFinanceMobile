@@ -40,6 +40,19 @@ const getAllExpenses = gql`
   }
 `;
 
+const getAllInvestments = gql`
+  query {
+    getAllInvestments {
+      name
+      matureDate
+      initialAmount
+      targetAmount
+      id
+      createdAt
+    }
+  }
+`;
+
 const clearError = () => ({
   type: actions.CLEAR_ERROR
 });
@@ -81,6 +94,21 @@ export const fetchExpenses = () => async dispatch => {
       query: getAllExpenses
     });
     dispatch({ type: actions.FETCHED_EXPENSES, payload: data });
+  } catch (error) {
+    dispatch({
+      type: actions.AUTHENTICATION_FAILURE,
+      payload: "contacted an error"
+    });
+  }
+};
+
+export const fetchInvestments = () => async dispatch => {
+  try {
+    dispatch({ type: actions.API_CALL_IN_PROGRESS });
+    const { data } = await client.query({
+      query: getAllInvestments
+    });
+    dispatch({ type: actions.FETCH_INVESTMENTS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: actions.AUTHENTICATION_FAILURE,
