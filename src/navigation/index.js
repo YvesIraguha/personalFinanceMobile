@@ -12,7 +12,7 @@ import { Dimensions } from "react-native";
 import LoginScreen from "../screens/login";
 import Income from "../screens/IncomeStreams";
 import Debt from "../screens/Debts";
-import Investment from "../screens/Investments";
+import Investment from "../screens/Investments/navigation";
 import Credit from "../screens/Credits";
 import DrawerScreen from "../screens/DrawerScreen";
 import Spending from "../screens/Expenses/navigation";
@@ -65,7 +65,8 @@ const Drawer = createDrawerNavigator(
   },
   {
     contentComponent: props => <DrawerScreen {...props} />,
-    drawerWidth: Dimensions.get("window").width * 0.85
+    drawerWidth: Dimensions.get("window").width * 0.85,
+    initialRouteName: "Spending"
   }
 );
 

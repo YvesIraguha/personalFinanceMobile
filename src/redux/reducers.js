@@ -122,6 +122,74 @@ const rootReducer = (state = initialState, action) => {
         deleteExpenseSuccess: false,
         apiInProgress: state.apiInProgress - 1
       };
+    case actions.FETCH_INVESTMENTS_SUCCESS:
+      return {
+        ...state,
+        apiInProgress: state.apiInProgress - 1,
+        investments: action.payload
+      };
+    case actions.FETCH_INVESTMENTS_FAILURE:
+      return {
+        ...state,
+        apiInProgress: state.apiInProgress - 1,
+        investmentsError: action.payload
+      };
+    case actions.RECORD_INVESTMENT_SUCCESS:
+      return {
+        ...state,
+        newInvestmentSuccess: true,
+        apiInProgress: state.apiInProgress - 1,
+        investments: {
+          getAllInvestments: [
+            action.payload,
+            ...state.investments.getAllInvestments
+          ]
+        }
+      };
+    case actions.RECORD_INVESTMENT_FAILURE:
+      return {
+        ...state,
+        newInvestmentSuccess: false,
+        apiInProgress: state.apiInProgress - 1
+      };
+    case actions.EDIT_INVESTMENT_SUCCESS:
+      return {
+        ...state,
+        investments: {
+          getAllInvestments: state.Investments.getAllInvestments.map(item => {
+            if (item.id === action.payload.id) {
+              return action.payload;
+            }
+            return item;
+          })
+        },
+
+        editINVESTMENTSuccess: true,
+        apiInProgress: state.apiInProgress - 1
+      };
+    case actions.EDIT_INVESTMENT_FAILURE:
+      return {
+        ...state,
+        editINVESTMENTSuccess: false,
+        apiInProgress: state.apiInProgress - 1
+      };
+    case actions.DELETE_INVESTMENT_SUCCESS:
+      return {
+        ...state,
+        investments: {
+          getAllInvestments: state.investments.getAllInvestments.filter(
+            item => item.id !== action.payload.id
+          )
+        },
+        deleteInvestmentSuccess: true,
+        apiInProgress: state.apiInProgress - 1
+      };
+    case actions.DELETE_INVESTMENT_FAILURE:
+      return {
+        ...state,
+        deleteInvestmentSuccess: false,
+        apiInProgress: state.apiInProgress - 1
+      };
     default:
       return state;
   }

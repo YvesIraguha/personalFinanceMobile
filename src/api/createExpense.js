@@ -38,6 +38,14 @@ const deleteExpenseQuery = gql`
   }
 `;
 
+const deleteInvestmentQuery = gql`
+  mutation deletedInvestment($id: String!) {
+    deleteInvestment(id: $id) {
+      name
+    }
+  }
+`;
+
 const editExpenseQuery = gql`
   mutation updateExpense(
     $id: String!
@@ -54,6 +62,55 @@ const editExpenseQuery = gql`
     }
   }
 `;
+
+const editInvestmentQuery = gql`
+  mutation updateInvestment(
+    $id: String!
+    $name: String
+    $initialAmount: Int
+    $targetAmount: Int
+  ) {
+    updateInvestment(
+      id: $id
+      name: $name
+      initialAmount: $initialAmount
+      targetAmount: $targetAmount
+    ) {
+      name
+      initialAmount
+      targetAmount
+      id
+      createdAt
+    }
+  }
+`;
+const createInvestmentQuery = gql`
+  mutation createInvestment(
+    $name: String!
+    $initialAmount: Int!
+    $targetAmount: Int!
+    $matureDate: String!
+  ) {
+    createInvestment(
+      name: $name
+      initialAmount: $initialAmount
+      targetAmount: $targetAmount
+      matureDate: $matureDate
+    ) {
+      id
+      name
+      initialAmount
+      targetAmount
+      matureDate
+      createdAt
+      owner {
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+
 export const recordExpense = async ({ type, price }) => {
   try {
     const newExpense = await client.mutate({
@@ -96,4 +153,59 @@ export const editExpense = async ({ id, type, quantity, price }) => {
   }
 };
 
-export default recordExpense;
+export const recordInvestment = async ({
+  name,
+  initialAmount,
+  targetAmount,
+  matureDate
+}) => {
+  try {
+    const newInvestment = await client.mutate({
+      mutation: createInvestmentQuery,
+      variables: {
+        name,
+        initialAmount: parseInt(initialAmount, 10),
+        targetAmount: parseInt(targetAmount, 10),
+        matureDate
+      }
+    });
+    return newInvestment;
+  } catch (error) {
+    throw new Error("Error is happening");
+  }
+};
+
+export const editInvestment = async ({
+  id,
+  name,
+  initialAmount,
+  targetAmount
+}) => {
+  try {
+    const editedInvestment = await client.mutate({
+      mutation: editInvestmentQuery,
+      variables: {
+        name,
+        initialAmount: parseInt(initialAmount, 10),
+        targetAmount: parseInt(targetAmount, 10),
+        id
+      }
+    });
+    return editedInvestment;
+  } catch (error) {
+    throw new Error("Error is happening");
+  }
+};
+
+export const deleteInvestment = async id => {
+  try {
+    const deletedInvestment = await client.mutate({
+      mutation: deleteInvestmentQuery,
+      variables: { id }
+    });
+
+    return deletedInvestment;
+  } catch (error) {
+    throw new Error("Error is happening");
+  }
+};
