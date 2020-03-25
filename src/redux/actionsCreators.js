@@ -49,6 +49,7 @@ const getAllInvestments = gql`
       targetAmount
       id
       createdAt
+      pictureUrl
     }
   }
 `;
@@ -72,6 +73,7 @@ export const authenticateUser = navigation => async dispatch => {
       mutation: createUserQuery,
       variables: { accessToken }
     });
+
     await AsyncStorage.setItem("token", token);
 
     dispatch({

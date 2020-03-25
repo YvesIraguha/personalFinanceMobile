@@ -6,12 +6,12 @@ import expenseAvatar from "../../../assets/expense.jpeg";
 import { capitalizeString, convertToHours } from "../../../helpers/utils";
 
 export default ({ item, navigation }) => {
-  const { name, initialAmount, createdAt: time } = item;
+  const { name, initialAmount, createdAt: time, pictureUrl } = item;
   return (
     <View style={[styles.container, styles.expenseContainer]}>
       <View style={styles.expenseAvatarContainer}>
         <Image
-          source={expenseAvatar}
+          source={pictureUrl ? { uri: pictureUrl } : expenseAvatar}
           resizeMode="contain"
           style={styles.expenseAvatar}
         />

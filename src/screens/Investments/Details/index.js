@@ -26,6 +26,7 @@ export const Details = props => {
           createdAt: time,
           matureDate,
           initialAmount,
+          pictureUrl,
           id
         }
       }
@@ -44,7 +45,7 @@ export const Details = props => {
     <View>
       <StatusBar barStyle="light-content" />
       <ImageBackground
-        source={imageUrl}
+        source={pictureUrl ? { uri: pictureUrl } : imageUrl}
         imageStyle={styles.imageStyle}
         style={styles.expenseImage}
       >

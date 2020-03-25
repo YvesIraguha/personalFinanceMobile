@@ -90,12 +90,14 @@ const createInvestmentQuery = gql`
     $initialAmount: Int!
     $targetAmount: Int!
     $matureDate: String!
+    $pictureUrl: String
   ) {
     createInvestment(
       name: $name
       initialAmount: $initialAmount
       targetAmount: $targetAmount
       matureDate: $matureDate
+      pictureUrl: $pictureUrl
     ) {
       id
       name
@@ -103,6 +105,7 @@ const createInvestmentQuery = gql`
       targetAmount
       matureDate
       createdAt
+      pictureUrl
       owner {
         firstName
         lastName
@@ -154,19 +157,32 @@ export const editExpense = async ({ id, type, quantity, price }) => {
 };
 
 export const recordInvestment = async ({
+  image,
   name,
   initialAmount,
   targetAmount,
   matureDate
 }) => {
+  const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/yvesiraguha/upload";
   try {
+    const data = { file: image, upload_preset: "h2jr6zm3" };
+    const uploadImage = await fetch(CLOUDINARY_URL, {
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json"
+      },
+      method: "POST"
+    });
+    const newResponse = await uploadImage.json();
+
     const newInvestment = await client.mutate({
       mutation: createInvestmentQuery,
       variables: {
         name,
         initialAmount: parseInt(initialAmount, 10),
         targetAmount: parseInt(targetAmount, 10),
-        matureDate
+        matureDate,
+        pictureUrl: newResponse.url
       }
     });
     return newInvestment;
