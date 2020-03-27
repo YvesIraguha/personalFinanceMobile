@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button } from "react-native";
 import styles from "./styles";
-import { handleCreatingInvestment } from "../../../../redux/createExpense";
+import { handleCreatingInvestment } from "../../../../redux/actionsCreators/investments";
 
 const SaveButton = props => {
   const {

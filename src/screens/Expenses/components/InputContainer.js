@@ -1,8 +1,8 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React from "react";
+import { Text, View } from "react-native";
 
-import styles from './styles';
-import Input from './Input';
+import styles from "./styles";
+import Input from "./Input";
 
 const InputContainer = ({ title }) => (
   <View style={styles.inputContainer}>

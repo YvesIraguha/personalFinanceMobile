@@ -1,4 +1,4 @@
-import * as actions from "./actionTypesConstants";
+import * as actions from "../actionTypesConstants";
 
 const initialState = {
   newExpenseModal: false,

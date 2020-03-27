@@ -1,14 +1,15 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import {
   View,
   SectionList,
   Text,
   ActivityIndicator,
-  Image
+  Image,
+  AsyncStorage
 } from "react-native";
 import { connect } from "react-redux";
-import { fetchInvestments } from "../../redux/actionsCreators";
+import { fetchInvestments } from "../../redux/actionsCreators/investments";
 import styles from "./styles";
 import Investment from "./components/Investment";
 import normalizeData from "../../helpers/normilizeData";
@@ -16,7 +17,28 @@ import AddInvestment from "./components/AddInvestment";
 import HeaderLeft from "./components/HeaderLeft";
 import noData from "../../assets/undraw_empty_xct9.png";
 
+const getProfileImage = async () => {
+  const profilePicture = await AsyncStorage.getItem("userProfile");
+  const profile = await JSON.parse(profilePicture);
+  return profile;
+};
 const Home = props => {
+  const [profileAvatar, setProfileAvatar] = useState(null);
+
+  const fetchProfile = async () => {
+    const { picture } = await getProfileImage();
+    setProfileAvatar(picture);
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  });
+
+  useLayoutEffect(() => {
+    const { navigation } = props;
+    navigation.setParams({ profileAvatar });
+  }, [profileAvatar]);
+
   useEffect(() => {
     const { loadInvestments } = props;
     loadInvestments();
