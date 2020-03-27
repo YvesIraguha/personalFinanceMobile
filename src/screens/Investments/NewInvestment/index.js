@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
+import { connect } from "react-redux";
 import {
   View,
   ImageBackground,
@@ -6,6 +7,7 @@ import {
   Keyboard,
   Platform
 } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import { EvilIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
@@ -19,7 +21,7 @@ import DateTimePicker from "./Components/DateTimePicker";
 const IMAGE_HEIGHT = 400;
 const IMAGE_HEIGHT_SMALL = 100;
 
-const NewInvestmentScreen = ({ navigation }) => {
+const NewInvestmentScreen = ({ navigation, apiInProgress }) => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [imageHeight, setImageHeight] = useState(IMAGE_HEIGHT);
   const [investment, setInvestment] = useState({});
@@ -89,50 +91,62 @@ const NewInvestmentScreen = ({ navigation }) => {
   }, [investment]);
 
   return (
-    <View style={{ paddingBottom: keyboardHeight }}>
-      <ImageBackground
-        source={selectedImage ? { uri: selectedImage } : imageUrl}
-        imageStyle={styles.imageStyle}
-        style={[styles.expenseImage, { height: imageHeight }]}
-      >
-        <TouchableOpacity style={styles.editButton} onPress={() => pickImage()}>
-          <EvilIcons name="camera" size={56} color="white" />
-        </TouchableOpacity>
-      </ImageBackground>
-      <View style={[styles.itemsContainer]}>
-        <Item
-          title="Name"
-          name="name"
-          iconName="person-outline"
-          placeholder="Name"
-          value={investment.type}
-          onTextChange={onInputChange}
+    <View>
+      {apiInProgress ? (
+        <Spinner
+          visible={!!apiInProgress}
+          textContent="Loading..."
+          textStyle={{ color: "white" }}
         />
-        <Item
-          title="Invested amount"
-          name="initialAmount"
-          iconName="attach-money"
-          placeholder="Invested amount"
-          value={investment.initialAmount}
-          onTextChange={onInputChange}
-        />
-        <Item
-          title="Target amount"
-          name="targetAmount"
-          iconName="money-off"
-          placeholder="Target amount"
-          value={investment.targetAmount}
-          onTextChange={onInputChange}
-        />
-        <DateTimePicker
-          title="Date"
-          name="matureDate"
-          iconName="perm-contact-calendar"
-          placeholder="Maturity date"
-          value={investment.matureDate}
-          onTextChange={onInputChange}
-          editable={false}
-        />
+      ) : null}
+      <View style={{ paddingBottom: keyboardHeight }}>
+        <ImageBackground
+          source={selectedImage ? { uri: selectedImage } : imageUrl}
+          imageStyle={styles.imageStyle}
+          style={[styles.expenseImage, { height: imageHeight }]}
+        >
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={() => pickImage()}
+          >
+            <EvilIcons name="camera" size={56} color="white" />
+          </TouchableOpacity>
+        </ImageBackground>
+        <View style={[styles.itemsContainer]}>
+          <Item
+            title="Name"
+            name="name"
+            iconName="person-outline"
+            placeholder="Name"
+            value={investment.type}
+            onTextChange={onInputChange}
+          />
+          <Item
+            title="Invested amount"
+            name="initialAmount"
+            iconName="attach-money"
+            placeholder="Invested amount"
+            value={investment.initialAmount}
+            onTextChange={onInputChange}
+          />
+          <Item
+            title="Target amount"
+            name="targetAmount"
+            iconName="money-off"
+            placeholder="Target amount"
+            value={investment.targetAmount}
+            onTextChange={onInputChange}
+          />
+          <DateTimePicker
+            title="Date"
+            name="matureDate"
+            iconName="perm-contact-calendar"
+            placeholder="Maturity date"
+            value={investment.matureDate}
+            onTextChange={onInputChange}
+            editable={false}
+          />
+        </View>
       </View>
     </View>
   );
@@ -142,4 +156,11 @@ NewInvestmentScreen.navigationOptions = ({ navigation }) => ({
   title: "Create new investment",
   headerRight: <SaveButton navigation={navigation} />
 });
-export default NewInvestmentScreen;
+
+const mapStateToProps = ({ apiInProgress }) => ({
+  apiInProgress
+});
+export default connect(
+  mapStateToProps,
+  null
+)(NewInvestmentScreen);

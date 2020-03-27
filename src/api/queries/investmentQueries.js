@@ -60,8 +60,8 @@ export const createInvestmentQuery = gql`
 `;
 
 export const getAllInvestmentsQuery = gql`
-  query {
-    getAllInvestments {
+  query getAllInvestments($startDate: String, $endDate: String) {
+    getAllInvestments(startDate: $startDate, endDate: $endDate) {
       name
       matureDate
       initialAmount

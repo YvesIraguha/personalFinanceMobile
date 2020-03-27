@@ -75,10 +75,20 @@ export const deleteInvestment = async id => {
   }
 };
 
-export const getInvestments = async () => {
+export const getInvestments = async (firstDate, secondDate) => {
   try {
+    const startDate = firstDate
+      ? new Date(firstDate).getTime().toString()
+      : null;
+    const endDate = secondDate
+      ? new Date(secondDate).getTime().toString()
+      : null;
     const investments = await client.query({
-      query: getAllInvestmentsQuery
+      query: getAllInvestmentsQuery,
+      variables: {
+        startDate,
+        endDate
+      }
     });
     return investments;
   } catch (error) {
