@@ -1,15 +1,15 @@
-import React,  from "react";
-import { View, Image } from "react-native";
-import profilePic from "../../../assets/profile.jpg";
+import React from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 import styles from "./styles";
 
 export default () => (
-  <View>
-    <Image
-      source={profilePic}
-      resizeMode="contain"
-      style={styles.headerImage}
+  <TouchableOpacity onPress={() => console.log("pressed")}>
+    <MaterialCommunityIcons
+      name="calendar-range"
+      size={30}
+      style={styles.calendarIcon}
     />
-  </View>
+  </TouchableOpacity>
 );

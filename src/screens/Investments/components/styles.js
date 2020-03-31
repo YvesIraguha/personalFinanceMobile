@@ -74,29 +74,7 @@ const styles = EStyleSheet.create({
     fontWeight: "200",
     fontSize: 13
   },
-  plusIcon: {
-    ...imageDimensions("32rem", 1),
-    tintColor: "rgba(0, 0, 0, 0.54)",
-    marginTop: 10,
-    marginLeft: "20rem"
-  },
-  cancelIconContainer: {
-    alignSelf: "flex-end",
-    margin: 10
-  },
-  cancelIcon: {
-    ...imageDimensions(20, 1),
-    tintColor: "rgba(0,0,0,0.54)"
-  },
-  nexExpenseContainer: {
-    backgroundColor: "white",
-    borderRadius: 8
-  },
-  newExpenseTitle: {
-    alignSelf: "center",
-    fontWeight: "500",
-    fontSize: "15rem"
-  },
+
   inputsContainer: { alignSelf: "center", margin: 10 },
   inputContainer: {
     flexDirection: "row",
@@ -108,31 +86,16 @@ const styles = EStyleSheet.create({
     fontWeight: "100"
   },
   input: {
-    fontSize: "15rem",
-    fontWeight: "100",
-    minWidth: 50,
     marginLeft: 10,
-    borderColor: "rgba(0,0,0,0.1)",
-    borderWidth: "1rem",
-    ...imageDimensions("75rem", 64 / 21)
+    marginVertical: 10
   },
-  saveButton: {
-    ...imageDimensions("80rem", 83 / 21),
-    backgroundColor: "#8E20E3",
-    alignItems: "center",
-    justifyContent: "center"
+  btns: {
+    width: 150,
+    flexDirection: "row"
   },
   saveButtonText: {
     color: "white",
     fontWeight: "900"
-  },
-  saveButtonContainer: {
-    alignSelf: "center",
-    margin: 10,
-    marginBottom: 30,
-    borderWidth: 1,
-    borderRadius: 2.5,
-    borderColor: "#8E20E3"
   },
   errorContainer: {
     height: 20,
@@ -160,7 +123,42 @@ const styles = EStyleSheet.create({
     elevation: 10,
     backgroundColor: "#009688",
     bottom: 30
-  }
+  },
+
+  dateInput: {
+    backgroundColor: "white",
+    width: 150,
+    borderBottomColor: "#000000",
+    borderBottomWidth: EStyleSheet.hairlineWidth
+  },
+  datePicker: {
+    flexDirection: "row"
+  },
+  filterContainer: {
+    backgroundColor: "white",
+    alignItems: "center",
+    borderRadius: 8,
+    paddingVertical: 20,
+    paddingHorizontal: 10
+  },
+  filterBtn: {
+    marginTop: 15,
+    borderWidth: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "50%",
+    backgroundColor: "#009688",
+    borderColor: "#009688"
+  },
+  filterText: {
+    color: "white",
+    padding: 5
+  },
+  clearButton: {
+    backgroundColor: "#E32D20",
+    borderColor: "#E32D20"
+  },
+  datePickerIcon: { marginLeft: "auto", marginTop: 10 }
 });
 
 export default styles;

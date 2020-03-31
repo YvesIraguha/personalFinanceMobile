@@ -15,6 +15,7 @@ import Investment from "./components/Investment";
 import normalizeData from "../../helpers/normilizeData";
 import AddInvestment from "./components/AddInvestment";
 import HeaderLeft from "./components/HeaderLeft";
+import FilterDateModal from "./components/FilterDateModal";
 import noData from "../../assets/undraw_empty_xct9.png";
 
 const getProfileImage = async () => {
@@ -23,6 +24,11 @@ const getProfileImage = async () => {
   return profile;
 };
 const Home = props => {
+  const {
+    navigation: {
+      state: { params: { startDate, endDate } = {} }
+    }
+  } = props;
   const [profileAvatar, setProfileAvatar] = useState(null);
 
   const fetchProfile = async () => {
@@ -41,8 +47,8 @@ const Home = props => {
 
   useEffect(() => {
     const { loadInvestments } = props;
-    loadInvestments();
-  }, []);
+    loadInvestments(startDate, endDate);
+  }, [startDate, endDate]);
   const { apiInProgress, navigation, investments } = props;
 
   return (
@@ -50,14 +56,7 @@ const Home = props => {
       <View style={styles.container}>
         {apiInProgress ? (
           <ActivityIndicator size="large" color="#0000ff" />
-        ) : !investments ? (
-          <View style={styles.emptyContainer}>
-            <Image source={noData} style={styles.empty} resizeMode="contain" />
-            <Text style={styles.emptyText}>
-              Your investment bucket is empty
-            </Text>
-          </View>
-        ) : (
+        ) : investments && investments.getAllInvestments.length ? (
           <View>
             <SectionList
               sections={normalizeData(investments.getAllInvestments)}
@@ -70,6 +69,13 @@ const Home = props => {
               keyExtractor={item => item.id}
             />
           </View>
+        ) : (
+          <View style={styles.emptyBucketContainer}>
+            <Image source={noData} style={styles.empty} resizeMode="contain" />
+            <Text style={styles.emptyText}>
+              Investments bucket for selected date is empty
+            </Text>
+          </View>
         )}
       </View>
       <AddInvestment navigation={navigation} />
@@ -80,7 +86,7 @@ const Home = props => {
 Home.navigationOptions = ({ navigation }) => ({
   title: "INVESTMENTS",
   headerLeft: <HeaderLeft navigation={navigation} />,
-  headerRight: null
+  headerRight: <FilterDateModal navigation={navigation} />
 });
 
 const mapStateToProps = ({
@@ -94,7 +100,8 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadInvestments: () => dispatch(fetchInvestments())
+  loadInvestments: (startDate, endDate) =>
+    dispatch(fetchInvestments(startDate, endDate))
 });
 export default connect(
   mapStateToProps,

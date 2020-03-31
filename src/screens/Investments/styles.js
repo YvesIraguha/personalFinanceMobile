@@ -21,6 +21,11 @@ const styles = EStyleSheet.create({
     padding: 15,
     backgroundColor: "#fff"
   },
+  emptyBucketContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1
+  },
 
   empty: {
     height: undefined,

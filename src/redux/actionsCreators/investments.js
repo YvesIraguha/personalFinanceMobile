@@ -71,10 +71,10 @@ export const handleDeletingInvestment = (id, navigate) => async dispatch => {
   }
 };
 
-export const fetchInvestments = () => async dispatch => {
+export const fetchInvestments = (startDate, endDate) => async dispatch => {
   try {
     dispatch({ type: actions.API_CALL_IN_PROGRESS });
-    const { data } = await getInvestments();
+    const { data } = await getInvestments(startDate, endDate);
     dispatch({ type: actions.FETCH_INVESTMENTS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
