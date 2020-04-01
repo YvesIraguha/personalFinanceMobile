@@ -1,8 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import EStyleSheet from "react-native-extended-stylesheet";
-import store from "./redux/index";
+import { store, persistor } from "./redux/index";
 import Navigation from "./navigation/index";
 
 EStyleSheet.build({
@@ -11,8 +12,10 @@ EStyleSheet.build({
 
 export default () => (
   <Provider store={store}>
-    <View style={{ flex: 1 }}>
-      <Navigation />
-    </View>
+    <PersistGate loading={null} persistor={persistor}>
+      <View style={{ flex: 1 }}>
+        <Navigation />
+      </View>
+    </PersistGate>
   </Provider>
 );
