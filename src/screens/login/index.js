@@ -1,95 +1,98 @@
-import React, { Component } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { View, Image, ActivityIndicator, AsyncStorage } from "react-native";
 import Toast, { DURATION } from "react-native-easy-toast";
-import { connect } from "react-redux";
-import registerUser from "../../redux/actionsCreators/authentication";
+import { useMutation } from "@apollo/react-hooks";
 import LoginButton from "./components/LoginButton";
-
 import personalFinance from "../../assets/undraw_personal_finance_tqcd.png";
 import styles from "./style";
+import { getUserProfile, getAccessToken } from "../../services/auth";
+import createUserQuery from "../../api/queries/authenticationQueries";
 
-class LoginScreen extends Component {
-  state = {
-    appLoading: true
+const LoginScreen = props => {
+  const { navigation } = props;
+  const [state, setState] = useState({ appLoading: true });
+  const toast = useRef(null);
+
+  const renderToast = message => {
+    toast.current.show(message, DURATION.LENGTH_LONG);
   };
 
-  static navigationOptions = {
-    header: null
-  };
+  const [registerUser, { loading, error }] = useMutation(createUserQuery, {
+    onCompleted(data) {
+      const {
+        createUser: { token }
+      } = data;
+      AsyncStorage.setItem("token", token);
+      navigation.navigate("App");
+    }
+  });
 
-  componentDidMount = async () => {
-    const { navigation } = this.props;
+  const checkAuthenticatedUSer = async () => {
     const token = await AsyncStorage.getItem("token");
-    if (token) {
-      this.setState({ appLoading: false });
+    const profilePicture = await AsyncStorage.getItem("userProfile");
+    if (token && profilePicture) {
+      setState({ appLoading: false });
       return navigation.navigate("App");
     }
-    this.setState({ appLoading: false });
+    setState({ appLoading: false });
     return navigation.navigate("Auth");
   };
 
-  handleAuthentication = () => {
-    const { registerUser: authenticateUser, navigation } = this.props;
-    authenticateUser(navigation);
-  };
-
-  renderToast = message => {
-    this.refs.toast.show(message, DURATION.LENGTH_LONG);
-  };
-
-  renderActivityIndicator = () => {
-    const {
-      signIn: { authenticationInProgress }
-    } = this.props;
-
-    return authenticationInProgress ? (
-      <View>
-        <ActivityIndicator size="small" color="#20D6E3" />
-      </View>
-    ) : null;
-  };
-
-  componentWillReceiveProps = nextProps => {
-    const {
-      signIn: { errorMessage }
-    } = nextProps;
-    if (errorMessage) {
-      this.renderToast(errorMessage);
+  const handleAuthentication = async () => {
+    try {
+      const { accessToken } = await getAccessToken();
+      const profileData = await getUserProfile(accessToken);
+      const userProfile = await profileData.json();
+      AsyncStorage.setItem("userProfile", JSON.stringify(userProfile));
+      registerUser({ variables: { accessToken } });
+    } catch (err) {
+      renderToast(err.message);
     }
   };
 
-  render() {
-    const { appLoading } = this.state;
-    return appLoading ? (
-      <View>
-        <ActivityIndicator size="small" color="#20D6E3" />
-      </View>
-    ) : (
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image
-            source={personalFinance}
-            style={styles.logoImage}
-            resizeMode="contain"
-          />
-          <LoginButton onPress={this.handleAuthentication} />
-          {this.renderActivityIndicator()}
-          <Toast
-            ref="toast"
-            style={{ backgroundColor: "#E32D20", marginTop: 200 }}
-            position="top"
-            positionValue={200}
-          />
-        </View>
-      </View>
-    );
-  }
-}
+  useEffect(() => {
+    checkAuthenticatedUSer();
+  }, []);
 
-const mapStateToProps = state => ({
-  signIn: state
-});
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(LoginScreen);
+  const renderActivityIndicator = () => {
+    return (
+      loading && (
+        <View>
+          <ActivityIndicator size="small" color="#20D6E3" />
+        </View>
+      )
+    );
+  };
+
+  const { appLoading } = state;
+  if (error) {
+    return renderToast(error.message);
+  }
+
+  return appLoading ? (
+    renderActivityIndicator()
+  ) : (
+    <View style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Image
+          source={personalFinance}
+          style={styles.logoImage}
+          resizeMode="contain"
+        />
+        <LoginButton onPress={handleAuthentication} authenticating={loading} />
+        <Toast
+          ref={toast}
+          style={{ backgroundColor: "#E32D20", marginTop: 200 }}
+          position="top"
+          positionValue={200}
+        />
+      </View>
+    </View>
+  );
+};
+
+LoginScreen.navigationOptions = {
+  header: null
+};
+
+export default LoginScreen;

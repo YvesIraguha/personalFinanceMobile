@@ -11,7 +11,17 @@ const config = {
   scopes: ["profile", "email"]
 };
 
-export default async () => {
+export const getAccessToken = async () => {
   const tokenResponse = await AppAuth.authAsync(config);
   return tokenResponse;
+};
+
+export const getUserProfile = async accessToken => {
+  const profileData = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    },
+    method: "GET"
+  });
+  return profileData;
 };
