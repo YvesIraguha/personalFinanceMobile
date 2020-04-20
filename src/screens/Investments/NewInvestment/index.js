@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
-import { connect } from "react-redux";
 import {
   View,
   ImageBackground,
@@ -157,10 +156,4 @@ NewInvestmentScreen.navigationOptions = ({ navigation }) => ({
   headerRight: <SaveButton navigation={navigation} />
 });
 
-const mapStateToProps = ({ apiInProgress }) => ({
-  apiInProgress
-});
-export default connect(
-  mapStateToProps,
-  null
-)(NewInvestmentScreen);
+export default NewInvestmentScreen;

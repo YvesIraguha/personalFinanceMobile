@@ -5,46 +5,46 @@ import { StyleSheet } from "react-native";
 const imageDimensions = (width, aspectRatio) => ({
   height: undefined,
   aspectRatio,
-  width
+  width,
 });
 
 const styles = EStyleSheet.create({
   container: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   cashContainer: {
-    marginLeft: 10
+    marginLeft: 10,
   },
   moreIcon: {
     marginLeft: 5,
-    ...imageDimensions(15, 1)
+    ...imageDimensions(15, 1),
   },
   text: {
-    fontSize: "13rem"
+    fontSize: "13rem",
   },
   headerImage: {
     marginLeft: 5,
     borderRadius: 15,
-    ...imageDimensions(32, 1)
+    ...imageDimensions(32, 1),
   },
   expenseContainer: {
     flex: 13,
-    marginVertical: 2
+    marginVertical: 2,
   },
   expenseAvatarContainer: {
     flex: 2,
     alignItems: "center",
-    margin: 10
+    margin: 10,
   },
   expenseAvatar: {
     marginHorizontal: 20,
     ...imageDimensions("40rem", 1),
-    borderRadius: "20rem"
+    borderRadius: "20rem",
   },
   profileAvatar: {
-    marginLeft: 30,
-    ...imageDimensions("30rem", 1),
-    borderRadius: "15rem"
+    marginLeft: 20,
+    ...imageDimensions("38rem", 1),
+    borderRadius: "19rem",
   },
   data: {
     flexDirection: "row",
@@ -53,57 +53,57 @@ const styles = EStyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   left: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   time: {
     fontWeight: "200",
     marginRight: 10,
-    fontSize: 12
+    fontSize: 12,
   },
   title: {
     fontWeight: "300",
     marginBottom: 5,
-    fontSize: 16
+    fontSize: 16,
   },
   price: {
     fontWeight: "200",
-    fontSize: 13
+    fontSize: 13,
   },
 
   inputsContainer: { alignSelf: "center", margin: 10 },
   inputContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: "10rem"
+    marginBottom: "10rem",
   },
   inputLabel: {
     fontSize: "15rem",
-    fontWeight: "100"
+    fontWeight: "100",
   },
   input: {
     marginLeft: 10,
-    marginVertical: 10
+    marginVertical: 10,
   },
   btns: {
     width: 150,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   saveButtonText: {
     color: "white",
-    fontWeight: "900"
+    fontWeight: "900",
   },
   errorContainer: {
     height: 20,
     marginTop: 10,
-    alignItems: "center"
+    alignItems: "center",
   },
   errorMessage: {
-    color: "red"
+    color: "red",
   },
   addInvestmentBtn: {
     position: "absolute",
@@ -116,30 +116,30 @@ const styles = EStyleSheet.create({
     shadowColor: "rgba(0,0,0,0.24)",
     shadowOffset: {
       width: 0,
-      height: 14
+      height: 14,
     },
     shadowOpacity: 1,
     shadowRadius: 14,
     elevation: 10,
     backgroundColor: "#009688",
-    bottom: 30
+    bottom: 30,
   },
 
   dateInput: {
     backgroundColor: "white",
     width: 150,
     borderBottomColor: "#000000",
-    borderBottomWidth: EStyleSheet.hairlineWidth
+    borderBottomWidth: EStyleSheet.hairlineWidth,
   },
   datePicker: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   filterContainer: {
     backgroundColor: "white",
     alignItems: "center",
     borderRadius: 8,
     paddingVertical: 20,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   filterBtn: {
     marginTop: 15,
@@ -148,17 +148,17 @@ const styles = EStyleSheet.create({
     justifyContent: "center",
     width: "50%",
     backgroundColor: "#009688",
-    borderColor: "#009688"
+    borderColor: "#009688",
   },
   filterText: {
     color: "white",
-    padding: 5
+    padding: 5,
   },
   clearButton: {
     backgroundColor: "#E32D20",
-    borderColor: "#E32D20"
+    borderColor: "#E32D20",
   },
-  datePickerIcon: { marginLeft: "auto", marginTop: 10 }
+  datePickerIcon: { marginLeft: "auto", marginTop: 10 },
 });
 
 export default styles;

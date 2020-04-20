@@ -8,8 +8,9 @@ import {
   Image,
   AsyncStorage
 } from "react-native";
-import { connect } from "react-redux";
-import { fetchInvestments } from "../../redux/actionsCreators/investments";
+import { useLazyQuery } from "@apollo/react-hooks";
+
+import { getAllInvestmentsQuery } from "../../api/queries/investmentQueries";
 import styles from "./styles";
 import Investment from "./components/Investment";
 import normalizeData from "../../helpers/normilizeData";
@@ -23,43 +24,50 @@ const getProfileImage = async () => {
   const profile = await JSON.parse(profilePicture);
   return profile;
 };
-const Home = props => {
+
+const InvestmentList = props => {
   const {
     navigation: {
       state: { params: { startDate, endDate } = {} }
     }
   } = props;
+  const [getInvestments, { loading, data }] = useLazyQuery(
+    getAllInvestmentsQuery,
+    {
+      variables: { startDate, endDate }
+    }
+  );
+
   const [profileAvatar, setProfileAvatar] = useState(null);
 
   const fetchProfile = async () => {
     const { picture } = await getProfileImage();
     setProfileAvatar(picture);
   };
-
   useEffect(() => {
     fetchProfile();
   });
+
+  useEffect(() => {
+    getInvestments();
+  }, [startDate, endDate]);
 
   useLayoutEffect(() => {
     const { navigation } = props;
     navigation.setParams({ profileAvatar });
   }, [profileAvatar]);
 
-  useEffect(() => {
-    const { loadInvestments } = props;
-    loadInvestments(startDate, endDate);
-  }, [startDate, endDate]);
-  const { apiInProgress, navigation, investments } = props;
+  const { navigation } = props;
 
   return (
     <View style={{ justifyContent: "center" }}>
       <View style={styles.container}>
-        {apiInProgress ? (
+        {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
-        ) : investments && investments.getAllInvestments.length ? (
+        ) : data && data.getAllInvestments.length ? (
           <View>
             <SectionList
-              sections={normalizeData(investments.getAllInvestments)}
+              sections={normalizeData(data.getAllInvestments)}
               renderItem={({ item }) => (
                 <Investment item={item} navigation={navigation} />
               )}
@@ -83,27 +91,10 @@ const Home = props => {
   );
 };
 
-Home.navigationOptions = ({ navigation }) => ({
+InvestmentList.navigationOptions = ({ navigation }) => ({
   title: "INVESTMENTS",
   headerLeft: <HeaderLeft navigation={navigation} />,
   headerRight: <FilterDateModal navigation={navigation} />
 });
 
-const mapStateToProps = ({
-  investments,
-  apiInProgress,
-  newExpenseSuccess
-}) => ({
-  investments,
-  apiInProgress,
-  newExpenseSuccess
-});
-
-const mapDispatchToProps = dispatch => ({
-  loadInvestments: (startDate, endDate) =>
-    dispatch(fetchInvestments(startDate, endDate))
-});
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default InvestmentList;

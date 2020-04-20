@@ -1,21 +1,36 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
-import { connect } from "react-redux";
+import { useMutation } from "@apollo/react-hooks";
 import { Feather } from "@expo/vector-icons";
 import styles from "./stylesheet";
-import { handleDeletingExpense } from "../../../../redux/actionsCreators/expenses";
+import {
+  deleteExpenseQuery,
+  getAllExpensesQuery
+} from "../../../../api/queries/expensesQueries";
 
 const MoreButton = props => {
-  const [displayDeleteBtn, setDisplayDeleteBtn] = useState(false);
   const {
     navigation: {
       navigate,
       state: {
         params: { id }
       }
-    },
-    deleteExpense
+    }
   } = props;
+  const [displayDeleteBtn, setDisplayDeleteBtn] = useState(false);
+  const [deleteExpense, { loading }] = useMutation(deleteExpenseQuery, {
+    update(cache) {
+      const { getAllExpenses } = cache.readQuery({
+        query: getAllExpensesQuery
+      });
+      cache.writeQuery({
+        query: getAllExpensesQuery,
+        data: {
+          getAllExpenses: getAllExpenses.filter(item => item.id !== id)
+        }
+      });
+    }
+  });
 
   const promptDeleteExpense = () => {
     Alert.alert(
@@ -27,7 +42,13 @@ const MoreButton = props => {
           onPress: () => setDisplayDeleteBtn(!displayDeleteBtn),
           style: "cancel"
         },
-        { text: "Delete", onPress: () => deleteExpense(id, navigate) }
+        {
+          text: "Delete",
+          onPress: () => {
+            navigate("Expenses");
+            deleteExpense({ variables: { id } });
+          }
+        }
       ],
       { cancelable: false }
     );
@@ -36,7 +57,11 @@ const MoreButton = props => {
     <View>
       {displayDeleteBtn ? (
         <View style={styles.deleteButton}>
-          <TouchableOpacity onPress={() => promptDeleteExpense()}>
+          <TouchableOpacity
+            onPress={() => promptDeleteExpense()}
+            disabled={loading}
+            color={loading ? "#9be7ff" : "#64b5f6"}
+          >
             <Text>Delete</Text>
           </TouchableOpacity>
         </View>
@@ -55,11 +80,5 @@ const MoreButton = props => {
     </View>
   );
 };
-const mapDispatchToProps = dispatch => ({
-  deleteExpense: (id, navigate) => dispatch(handleDeletingExpense(id, navigate))
-});
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(MoreButton);
+export default MoreButton;

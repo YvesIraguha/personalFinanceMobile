@@ -25,6 +25,8 @@ export const editInvestmentQuery = gql`
       initialAmount
       targetAmount
       id
+      matureDate
+      pictureUrl
       createdAt
     }
   }

@@ -1,32 +1,63 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Button } from "react-native";
+import { useMutation } from "@apollo/react-hooks";
 import styles from "./styles";
-import { handleEditingExpense } from "../../../../redux/actionsCreators/expenses";
+import {
+  editExpenseQuery,
+  getAllExpensesQuery
+} from "../../../../api/queries/expensesQueries";
 
 const SaveButton = props => {
-  const {
-    editExpense,
-    navigation: {
-      navigate,
-      state: { params: expense }
+  const [editExpense, { loading }] = useMutation(editExpenseQuery, {
+    update(
+      cache,
+      {
+        data: { updateExpense }
+      }
+    ) {
+      const { getAllExpenses } = cache.readQuery({
+        query: getAllExpensesQuery
+      });
+      cache.writeQuery({
+        query: getAllExpensesQuery,
+        data: {
+          getAllExpenses: getAllExpenses.map(item => {
+            if (item.id === updateExpense.id) {
+              return updateExpense;
+            }
+            return item;
+          })
+        }
+      });
     }
-  } = props;
+  });
+
+  const runEditExpense = async () => {
+    const {
+      navigation: {
+        navigate,
+        state: { params: expense }
+      }
+    } = props;
+    await editExpense({
+      variables: {
+        ...expense,
+        quantity: parseInt(expense.quantity, 10),
+        price: parseInt(expense.price, 10)
+      }
+    });
+
+    navigate("Expenses");
+  };
   return (
     <Button
       style={styles.saveButton}
       title="Save"
-      onPress={() => editExpense(expense, navigate)}
+      onPress={runEditExpense}
+      disabled={loading}
+      color={loading ? "#9be7ff" : "#64b5f6"}
     />
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  editExpense: (expense, navigate) =>
-    dispatch(handleEditingExpense(expense, navigate))
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(SaveButton);
+export default SaveButton;

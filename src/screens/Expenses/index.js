@@ -8,15 +8,15 @@ import {
   Image,
   AsyncStorage
 } from "react-native";
-import { connect } from "react-redux";
-import { fetchExpenses } from "../../redux/actionsCreators/expenses";
+import { useQuery } from "@apollo/react-hooks";
 import styles from "./styles";
 import Expense from "./components/Expense";
 import normalizeData from "../../helpers/normilizeData";
 import AddExpense from "./components/AddExpense";
 import HeaderLeft from "./components/HeaderLeft";
 import noData from "../../assets/undraw_empty_xct9.png";
-import NewExpenseModal from "./components/NewExpenseModal";
+
+import { getAllExpensesQuery } from "../../api/queries/expensesQueries";
 
 const getProfileImage = async () => {
   const profilePicture = await AsyncStorage.getItem("userProfile");
@@ -26,16 +26,13 @@ const getProfileImage = async () => {
 
 const Home = props => {
   const [profileAvatar, setProfileAvatar] = useState(null);
+  const { loading, data } = useQuery(getAllExpensesQuery);
 
   const fetchProfile = async () => {
     const { picture } = await getProfileImage();
     setProfileAvatar(picture);
   };
 
-  useEffect(() => {
-    const { loadExpenses } = props;
-    loadExpenses();
-  }, []);
   useEffect(() => {
     fetchProfile();
   });
@@ -45,14 +42,14 @@ const Home = props => {
     navigation.setParams({ profileAvatar });
   }, [profileAvatar]);
 
-  const { expenses, apiInProgress, navigation } = props;
+  const { navigation } = props;
 
   return (
     <View style={{ justifyContent: "center" }}>
       <View style={styles.container}>
-        {apiInProgress ? (
+        {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
-        ) : !expenses ? (
+        ) : !data.getAllExpenses.length ? (
           <View style={styles.emptyContainer}>
             <Image source={noData} style={styles.empty} resizeMode="contain" />
             <Text style={styles.emptyText}>Your expenses bucket is empty</Text>
@@ -60,7 +57,7 @@ const Home = props => {
         ) : (
           <View>
             <SectionList
-              sections={normalizeData(expenses.getAllExpenses)}
+              sections={normalizeData(data.getAllExpenses)}
               renderItem={({ item }) => (
                 <Expense item={item} navigation={navigation} />
               )}
@@ -72,28 +69,14 @@ const Home = props => {
           </View>
         )}
       </View>
-      <AddExpense />
-      <NewExpenseModal />
+      <AddExpense navigation={navigation} />
     </View>
   );
 };
 
 Home.navigationOptions = ({ navigation }) => ({
   title: "EXPENSES",
-  headerLeft: <HeaderLeft navigation={navigation} />,
-  headerRight: null
+  headerLeft: <HeaderLeft navigation={navigation} />
 });
 
-const mapStateToProps = ({ expenses, apiInProgress, newExpenseSuccess }) => ({
-  expenses,
-  apiInProgress,
-  newExpenseSuccess
-});
-
-const mapDispatchToProps = dispatch => ({
-  loadExpenses: () => dispatch(fetchExpenses())
-});
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default Home;

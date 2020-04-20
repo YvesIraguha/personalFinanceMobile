@@ -1,22 +1,44 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
-import { connect } from "react-redux";
+import { useMutation } from "@apollo/react-hooks";
 import { Feather } from "@expo/vector-icons";
+import {
+  deleteInvestmentQuery,
+  getAllInvestmentsQuery
+} from "../../../../api/queries/investmentQueries";
+
 import styles from "./stylesheet";
-import { handleDeletingInvestment } from "../../../../redux/actionsCreators/investments";
 
 const MoreButton = props => {
   const [displayDeleteBtn, setDisplayDeleteBtn] = useState(false);
+  const [deleteInvestment, { loading }] = useMutation(deleteInvestmentQuery, {
+    update(cache) {
+      const { getAllInvestments } = cache.readQuery({
+        query: getAllInvestmentsQuery
+      });
+      cache.writeQuery({
+        query: getAllInvestmentsQuery,
+
+        data: {
+          getAllInvestments: getAllInvestments.filter(item => item.id !== id)
+        }
+      });
+    }
+  });
+
   const {
     navigation: {
       navigate,
       state: {
         params: { id }
       }
-    },
-    deleteInvestment
+    }
   } = props;
 
+  const handleInvestmentDeletion = () => {
+    deleteInvestment({ variables: { id } });
+    navigate("Investments");
+  };
   const promptDeleteInvestment = () => {
     Alert.alert(
       null,
@@ -27,7 +49,7 @@ const MoreButton = props => {
           onPress: () => setDisplayDeleteBtn(!displayDeleteBtn),
           style: "cancel"
         },
-        { text: "Delete", onPress: () => deleteInvestment(id, navigate) }
+        { text: "Delete", onPress: handleInvestmentDeletion }
       ],
       { cancelable: false }
     );
@@ -55,12 +77,5 @@ const MoreButton = props => {
     </View>
   );
 };
-const mapDispatchToProps = dispatch => ({
-  deleteInvestment: (id, navigate) =>
-    dispatch(handleDeletingInvestment(id, navigate))
-});
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(MoreButton);
+export default MoreButton;
