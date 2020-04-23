@@ -1,29 +1,23 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import {
   View,
   SectionList,
   Text,
   ActivityIndicator,
-  Image,
-  AsyncStorage
-} from "react-native";
-import { useLazyQuery } from "@apollo/react-hooks";
+  Image
+} from 'react-native';
+import { useLazyQuery } from '@apollo/react-hooks';
 
-import { getAllInvestmentsQuery } from "../../api/queries/investmentQueries";
-import styles from "./styles";
-import Investment from "./components/Investment";
-import normalizeData from "../../helpers/normilizeData";
-import AddInvestment from "./components/AddInvestment";
-import HeaderLeft from "./components/HeaderLeft";
-import FilterDateModal from "./components/FilterDateModal";
-import noData from "../../assets/undraw_empty_xct9.png";
-
-const getProfileImage = async () => {
-  const profilePicture = await AsyncStorage.getItem("userProfile");
-  const profile = await JSON.parse(profilePicture);
-  return profile;
-};
+import { getAllInvestmentsQuery } from '../../api/queries/investmentQueries';
+import { getProfileImage } from '../../helpers/utils';
+import styles from './styles';
+import Investment from './components/Investment';
+import normalizeData from '../../helpers/normilizeData';
+import AddInvestment from './components/AddInvestment';
+import HeaderLeft from './components/HeaderLeft';
+import FilterDateModal from './components/FilterDateModal';
+import noData from '../../assets/undraw_empty_xct9.png';
 
 const InvestmentList = props => {
   const {
@@ -60,7 +54,7 @@ const InvestmentList = props => {
   const { navigation } = props;
 
   return (
-    <View style={{ justifyContent: "center" }}>
+    <View style={{ justifyContent: 'center' }}>
       <View style={styles.container}>
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
@@ -92,7 +86,7 @@ const InvestmentList = props => {
 };
 
 InvestmentList.navigationOptions = ({ navigation }) => ({
-  title: "INVESTMENTS",
+  title: 'INVESTMENTS',
   headerLeft: <HeaderLeft navigation={navigation} />,
   headerRight: <FilterDateModal navigation={navigation} />
 });

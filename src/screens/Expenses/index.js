@@ -1,28 +1,22 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   View,
   SectionList,
   Text,
   ActivityIndicator,
-  Image,
-  AsyncStorage
-} from "react-native";
-import { useQuery } from "@apollo/react-hooks";
-import styles from "./styles";
-import Expense from "./components/Expense";
-import normalizeData from "../../helpers/normilizeData";
-import AddExpense from "./components/AddExpense";
-import HeaderLeft from "./components/HeaderLeft";
-import noData from "../../assets/undraw_empty_xct9.png";
+  Image
+} from 'react-native';
+import { useQuery } from '@apollo/react-hooks';
+import styles from './styles';
+import Expense from './components/Expense';
+import normalizeData from '../../helpers/normilizeData';
+import { getProfileImage } from '../../helpers/utils';
+import AddExpense from './components/AddExpense';
+import HeaderLeft from './components/HeaderLeft';
+import noData from '../../assets/undraw_empty_xct9.png';
 
-import { getAllExpensesQuery } from "../../api/queries/expensesQueries";
-
-const getProfileImage = async () => {
-  const profilePicture = await AsyncStorage.getItem("userProfile");
-  const profile = await JSON.parse(profilePicture);
-  return profile;
-};
+import { getAllExpensesQuery } from '../../api/queries/expensesQueries';
 
 const Home = props => {
   const [profileAvatar, setProfileAvatar] = useState(null);
@@ -45,7 +39,7 @@ const Home = props => {
   const { navigation } = props;
 
   return (
-    <View style={{ justifyContent: "center" }}>
+    <View style={{ justifyContent: 'center' }}>
       <View style={styles.container}>
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
@@ -75,7 +69,7 @@ const Home = props => {
 };
 
 Home.navigationOptions = ({ navigation }) => ({
-  title: "EXPENSES",
+  title: 'EXPENSES',
   headerLeft: <HeaderLeft navigation={navigation} />
 });
 

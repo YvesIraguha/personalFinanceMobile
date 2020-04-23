@@ -12,3 +12,4 @@ web-report/
 .env
 yarn.lock
 .DS_store
+yarn*

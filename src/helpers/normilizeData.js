@@ -1,4 +1,4 @@
-import { convertToReadableDate } from "./utils";
+import { convertToReadableDate } from './utils';
 
 const normalizeData = data => {
   const newData = data.reduce((normalizedData, currentValue) => {

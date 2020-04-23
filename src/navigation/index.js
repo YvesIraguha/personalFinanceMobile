@@ -1,17 +1,17 @@
-import React from "react";
-import { createSwitchNavigator, createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { createDrawerNavigator } from "react-navigation-drawer";
-import { Ionicons } from "@expo/vector-icons";
-import { Dimensions } from "react-native";
-import LoginScreen from "../screens/login";
-import Investment from "../screens/Investments/navigation";
-import DrawerScreen from "../screens/DrawerScreen";
-import Spending from "../screens/Expenses/navigation";
+import React from 'react';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import { Ionicons } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
+import LoginScreen from '../screens/login';
+import Investment from '../screens/Investments/navigation';
+import DrawerScreen from '../screens/DrawerScreen';
+import Spending from '../screens/Expenses/navigation';
 
 const AuthStack = createStackNavigator(
   { Login: LoginScreen },
-  { initialRouteName: "Login" }
+  { initialRouteName: 'Login' }
 );
 
 const Drawer = createDrawerNavigator(
@@ -34,8 +34,8 @@ const Drawer = createDrawerNavigator(
   },
   {
     contentComponent: props => <DrawerScreen {...props} />,
-    drawerWidth: Dimensions.get("window").width * 0.85,
-    initialRouteName: "Investment"
+    drawerWidth: Dimensions.get('window').width * 0.85,
+    initialRouteName: 'Investment'
   }
 );
 
@@ -45,7 +45,7 @@ const switchNavigator = createSwitchNavigator(
     App: Drawer
   },
   {
-    initialRouteName: "Auth"
+    initialRouteName: 'Auth'
   }
 );
 

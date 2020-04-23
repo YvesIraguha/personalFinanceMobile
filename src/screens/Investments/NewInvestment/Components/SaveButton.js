@@ -1,25 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useMutation } from "@apollo/react-hooks";
-import { Button } from "react-native";
+import { useMutation } from '@apollo/react-hooks';
+import { Button } from 'react-native';
 import {
   createInvestmentQuery,
   getAllInvestmentsQuery
-} from "../../../../api/queries/investmentQueries";
-import uploadImage from "../../../../services/uploadImage";
-import styles from "./styles";
+} from '../../../../api/queries/investmentQueries';
+import uploadImage from '../../../../services/uploadImage';
+import styles from './styles';
 
 const SaveButton = props => {
   const [apiCallInProgress, setApiCall] = useState(false);
   const [recordNewInvestment, { loading }] = useMutation(
     createInvestmentQuery,
     {
-      update(
-        cache,
-        {
-          data: { createInvestment }
-        }
-      ) {
+      update(cache, { data: { createInvestment } }) {
         const { getAllInvestments } = cache.readQuery({
           query: getAllInvestmentsQuery
         });
@@ -42,7 +37,6 @@ const SaveButton = props => {
     setApiCall(true);
     const { name, initialAmount, targetAmount, matureDate, image } = investment;
     const { url: pictureUrl } = await uploadImage(image);
-
     recordNewInvestment({
       variables: {
         name,
@@ -53,14 +47,14 @@ const SaveButton = props => {
       }
     });
     setApiCall(false);
-    navigate("Investments");
+    navigate('Investments');
   };
   return (
     <Button
       style={styles.saveButton}
       title="Save"
       disabled={loading || apiCallInProgress}
-      color={loading || apiCallInProgress ? "#9be7ff" : "#64b5f6"}
+      color={loading || apiCallInProgress ? '#9be7ff' : '#64b5f6'}
       onPress={recordInvestment}
     />
   );
