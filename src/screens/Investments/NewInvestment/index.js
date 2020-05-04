@@ -1,103 +1,52 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import {
-  View,
-  ImageBackground,
-  TouchableOpacity,
-  Keyboard,
-  Platform
-} from 'react-native';
+import React, { useState, useLayoutEffect } from 'react';
+import { View, ImageBackground, TouchableOpacity } from 'react-native';
 
 import { EvilIcons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
+
 import imageUrl from '../../../assets/expense.jpeg';
 import Item from './Components/ExpenseProperty';
 import styles from './styles';
 import SaveButton from './Components/SaveButton';
 import DateTimePicker from './Components/DateTimePicker';
-
-const IMAGE_HEIGHT = 400;
-const IMAGE_HEIGHT_SMALL = 100;
+import useKeboardListener from '../../customHooks/keyboardListerner';
+import useImagePicker from '../../customHooks/uploadImage';
 
 const NewInvestmentScreen = ({ navigation }) => {
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
-  const [imageHeight, setImageHeight] = useState(IMAGE_HEIGHT);
+  const [imageHeight, , editButtonStyles] = useKeboardListener();
   const [investment, setInvestment] = useState({});
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, base64Image, pickImage] = useImagePicker();
+
   const onInputChange = (field, value) => {
     setInvestment({ ...investment, [field]: value });
   };
 
-  const keyboardWillShow = event => {
-    setKeyboardHeight(event.endCoordinates.height);
-    setImageHeight(IMAGE_HEIGHT_SMALL);
-  };
-
-  const keyboardWillHide = () => {
-    setKeyboardHeight(0);
-    setImageHeight(IMAGE_HEIGHT);
-  };
-
-  const getPermissionAsync = async () => {
-    if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      if (status !== 'granted') {
-        alert('Sorry, we need camera roll permissions to upload images!');
-      }
-    }
-  };
-
-  const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-      base64: true
-    });
-    if (result.cancelled) {
-      return;
-    }
-    const base64Img = `data:image/jpg;base64,${result.base64}`;
-    setSelectedImage(result.uri);
-    onInputChange('image', base64Img);
-  };
-  useEffect(() => {
-    const firstEvent =
-      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
-    const secondEvent =
-      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
-    const keyboardWillShowSub = Keyboard.addListener(
-      firstEvent,
-      keyboardWillShow
-    );
-    const keyboardWillHideSub = Keyboard.addListener(
-      secondEvent,
-      keyboardWillHide
-    );
-    return () => {
-      keyboardWillShowSub.remove();
-      keyboardWillHideSub.remove();
-    };
-  }, []);
-
-  useEffect(() => {
-    getPermissionAsync();
-  });
   useLayoutEffect(() => {
-    navigation.setParams(investment);
-  }, [investment]);
+    navigation.setParams({ ...investment, image: base64Image });
+  }, [investment, base64Image]);
 
   return (
     <View style={{ flex: 2 }}>
       <ImageBackground
         source={selectedImage ? { uri: selectedImage } : imageUrl}
         imageStyle={styles.imageStyle}
-        style={[styles.expenseImage, { height: imageHeight, flex: 1 }]}
+        style={[styles.expenseImage, { height: imageHeight }]}
       >
-        <TouchableOpacity style={styles.editButton} onPress={() => pickImage()}>
-          <EvilIcons name="camera" size={56} color="white" />
+        <TouchableOpacity
+          style={[
+            styles.editButton,
+            {
+              height: editButtonStyles.height,
+              width: editButtonStyles.width,
+              borderRadius: editButtonStyles.borderRadius
+            }
+          ]}
+          onPress={() => pickImage()}
+        >
+          <EvilIcons
+            name="camera"
+            size={editButtonStyles.iconSize}
+            color="white"
+          />
         </TouchableOpacity>
       </ImageBackground>
       <View style={[styles.itemsContainer, { flex: 1 }]}>

@@ -1,24 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import { Button } from "react-native";
-import { useMutation } from "@apollo/react-hooks";
-import styles from "./styles";
+import { Button } from 'react-native';
+import { useMutation } from '@apollo/react-hooks';
+import styles from './styles';
 
 import {
   createExpenseQuery,
   getAllExpensesQuery
-} from "../../../../api/queries/expensesQueries";
+} from '../../../../api/queries/expensesQueries';
 
-const NewExpense = props => {
-  const [recordNewExpense, { data, loading, error }] = useMutation(
+const NewExpense = (props) => {
+  const [recordNewExpense, { loading, error }] = useMutation(
     createExpenseQuery,
     {
-      update(
-        cache,
-        {
-          data: { createExpense }
-        }
-      ) {
+      update(cache, { data: { createExpense } }) {
         const { getAllExpenses } = cache.readQuery({
           query: getAllExpensesQuery
         });
@@ -39,14 +34,14 @@ const NewExpense = props => {
     recordNewExpense({
       variables: { type: expense.type, price: parseInt(expense.price, 10) }
     });
-    navigate("Expenses");
+    navigate('Expenses');
   };
 
   return (
     <Button
       style={[styles.saveButton]}
       disabled={loading}
-      color={loading ? "#9be7ff" : "#64b5f6"}
+      color={loading ? '#9be7ff' : '#64b5f6'}
       title="Save"
       onPress={handleNewExpense}
     />
