@@ -1,4 +1,4 @@
-import { CLOUDINARY_URL, CLOUDINARY_PRESET } from "react-native-dotenv";
+import { CLOUDINARY_URL, CLOUDINARY_PRESET } from 'react-native-dotenv';
 
 export default async image => {
   try {
@@ -6,9 +6,9 @@ export default async image => {
     const uploadImage = await fetch(CLOUDINARY_URL, {
       body: JSON.stringify(data),
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json'
       },
-      method: "POST"
+      method: 'POST'
     });
     const newResponse = await uploadImage.json();
     return newResponse;

@@ -1,25 +1,15 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import {
-  View,
-  ImageBackground,
-  TouchableOpacity,
-  Keyboard,
-  Platform
-} from "react-native";
-import { EvilIcons } from "@expo/vector-icons";
-import imageUrl from "../../../assets/expense.jpeg";
-import Item from "./Components/ExpenseProperty";
-import styles from "./styles";
-import { convertToReadableDate } from "../../../helpers/utils";
-import SaveButton from "./Components/SaveButton";
-
-const IMAGE_HEIGHT = 400;
-const IMAGE_HEIGHT_SMALL = 100;
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { View, ImageBackground, TouchableOpacity } from 'react-native';
+import { EvilIcons } from '@expo/vector-icons';
+import imageUrl from '../../../assets/expense.jpeg';
+import Item from './Components/ExpenseProperty';
+import styles from './styles';
+import { convertToReadableDate } from '../../../helpers/utils';
+import SaveButton from './Components/SaveButton';
+import useKeboardListener from '../../customHooks/keyboardListerner';
 
 const EditScreen = ({ navigation }) => {
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
-  const [imageHeight, setImageHeight] = useState(IMAGE_HEIGHT);
-
+  const [imageHeight, keyboardHeight] = useKeboardListener();
   const [expense, setExpense] = useState({});
 
   const onInputChange = (field, value) => {
@@ -37,38 +27,9 @@ const EditScreen = ({ navigation }) => {
       type: title,
       date: convertToReadableDate(time),
       price: `${price}`,
-      amount: "1000 Rwf",
+      amount: '1000 Rwf',
       quantity: `${quantity || 0}`
     });
-  }, []);
-
-  const keyboardWillShow = event => {
-    setKeyboardHeight(event.endCoordinates.height);
-    setImageHeight(IMAGE_HEIGHT_SMALL);
-  };
-
-  const keyboardWillHide = () => {
-    setKeyboardHeight(0);
-    setImageHeight(IMAGE_HEIGHT);
-  };
-
-  useEffect(() => {
-    const firstEvent =
-      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
-    const secondEvent =
-      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
-    const keyboardWillShowSub = Keyboard.addListener(
-      firstEvent,
-      keyboardWillShow
-    );
-    const keyboardWillHideSub = Keyboard.addListener(
-      secondEvent,
-      keyboardWillHide
-    );
-    return () => {
-      keyboardWillShowSub.remove();
-      keyboardWillHideSub.remove();
-    };
   }, []);
 
   useLayoutEffect(() => {

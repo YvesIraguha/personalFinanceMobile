@@ -1,8 +1,8 @@
-import React from "react";
-import { View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import styles from "./styles";
-import EditInput from "./EditInput";
+import React from 'react';
+import { View } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import styles from './styles';
+import EditInput from './EditInput';
 
 const Item = ({
   value,
@@ -12,7 +12,7 @@ const Item = ({
   iconName,
   placeholder
 }) => {
-  const handleTextChange = text => {
+  const handleTextChange = (text) => {
     onTextChange(name, text);
   };
 
