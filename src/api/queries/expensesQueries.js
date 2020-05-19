@@ -1,13 +1,14 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const createExpenseQuery = gql`
-  mutation createExpense($type: String!, $price: Int!) {
-    createExpense(type: $type, price: $price) {
+  mutation createExpense($type: String!, $price: Int!, $parentId: String) {
+    createExpense(type: $type, price: $price, parentId: $parentId) {
       type
       quantity
       price
       id
       createdAt
+      parentId
     }
   }
 `;

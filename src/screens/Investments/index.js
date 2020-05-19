@@ -8,7 +8,6 @@ import {
   Image
 } from 'react-native';
 import { useLazyQuery } from '@apollo/react-hooks';
-
 import { getAllInvestmentsQuery } from '../../api/queries/investmentQueries';
 import { getProfileImage } from '../../helpers/utils';
 import styles from './styles';
@@ -19,7 +18,7 @@ import HeaderLeft from './components/HeaderLeft';
 import FilterDateModal from './components/FilterDateModal';
 import noData from '../../assets/undraw_empty_xct9.png';
 
-const InvestmentList = props => {
+const InvestmentList = (props) => {
   const {
     navigation: {
       state: { params: { startDate, endDate } = {} }
@@ -68,7 +67,7 @@ const InvestmentList = props => {
               renderSectionHeader={({ section }) => (
                 <Text style={styles.sectionHeader}>{section.title}</Text>
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={(item) => item.id}
             />
           </View>
         ) : (
@@ -80,6 +79,7 @@ const InvestmentList = props => {
           </View>
         )}
       </View>
+
       <AddInvestment navigation={navigation} />
     </View>
   );
