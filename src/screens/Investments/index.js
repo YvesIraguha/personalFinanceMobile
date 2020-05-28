@@ -18,13 +18,13 @@ import HeaderLeft from './components/HeaderLeft';
 import FilterDateModal from './components/FilterDateModal';
 import noData from '../../assets/undraw_empty_xct9.png';
 
-const InvestmentList = (props) => {
+const InvestmentList = props => {
   const {
     navigation: {
       state: { params: { startDate, endDate } = {} }
     }
   } = props;
-  const [getInvestments, { loading, data }] = useLazyQuery(
+  const [getInvestments, { loading, data, error }] = useLazyQuery(
     getAllInvestmentsQuery,
     {
       variables: { startDate, endDate }
@@ -67,7 +67,7 @@ const InvestmentList = (props) => {
               renderSectionHeader={({ section }) => (
                 <Text style={styles.sectionHeader}>{section.title}</Text>
               )}
-              keyExtractor={(item) => item.id}
+              keyExtractor={item => item.id}
             />
           </View>
         ) : (

@@ -13,7 +13,7 @@ import Item from './Components/Item';
 import styles from './styles';
 import { convertToReadableDate } from '../../../helpers/utils';
 import MoreButton from './Components/DeleteButton';
-import AddExpense from '../../components/AddExpenseButton';
+import AddExpenseButton from '../../Expenses/components/AddExpense';
 
 export const Details = props => {
   const {
@@ -58,13 +58,19 @@ export const Details = props => {
         <Item title="Invested amount" value={`${initialAmount} RWF`} />
         <Item title="Target amount" value={`${price} RWF`} />
       </View>
-      <AddExpense navigation={navigation} target={'NewExpense'} id={id} />
-      <TouchableOpacity
-        style={styles.editButton}
-        onPress={navigateToEditScreen}
-      >
-        <MaterialIcons name="edit" size={30} color="white" />
-      </TouchableOpacity>
+      <View>
+        <AddExpenseButton
+          navigation={navigation}
+          target={'NewExpense'}
+          id={id}
+        />
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={navigateToEditScreen}
+        >
+          <MaterialIcons name="edit" size={30} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

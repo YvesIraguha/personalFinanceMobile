@@ -45,6 +45,7 @@ export const getAllExpensesQuery = gql`
       quantity
       price
       id
+      parentId
       createdAt
     }
   }
