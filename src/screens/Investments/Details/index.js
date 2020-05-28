@@ -12,7 +12,7 @@ import imageUrl from '../../../assets/expense.jpeg';
 import Item from './Components/Item';
 import styles from './styles';
 import { convertToReadableDate } from '../../../helpers/utils';
-import MoreButton from './Components/DeleteButton';
+import MoreButton from './Components/IvstmentActions';
 import AddExpenseButton from '../../Expenses/components/AddExpense';
 
 export const Details = props => {

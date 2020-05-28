@@ -37,7 +37,6 @@ const Home = props => {
   }, [profileAvatar]);
 
   const { navigation } = props;
-
   return (
     <View style={{ justifyContent: 'center' }}>
       <View style={styles.container}>

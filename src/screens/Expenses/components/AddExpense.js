@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 
-const AddExpense = ({ navigation, target, id }) => {
+const AddExpense = ({ navigation, id }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('NewExpense', { id })}
