@@ -9,7 +9,7 @@ import {
   getAllExpensesQuery
 } from '../../../../api/queries/expensesQueries';
 
-const NewExpense = (props) => {
+const NewExpense = props => {
   const [recordNewExpense, { loading, error }] = useMutation(
     createExpenseQuery,
     {
@@ -32,7 +32,11 @@ const NewExpense = (props) => {
       }
     } = props;
     recordNewExpense({
-      variables: { type: expense.type, price: parseInt(expense.price, 10) }
+      variables: {
+        type: expense.type,
+        price: parseInt(expense.price, 10),
+        parentId: expense.id
+      }
     });
     navigate('Expenses');
   };
