@@ -18,13 +18,21 @@ const styles = EStyleSheet.create({
   },
   menuContainer: {
     backgroundColor: 'white',
-    // padding: 20,
-    // marginRight: 20,
-    marginTop: 40,
+    position: 'absolute',
+    zIndex: 1,
+    right: 20,
+    bottom: 350,
     borderRadius: 5
   },
+  menuDisplay: {
+    position: 'absolute',
+    zIndex: 1,
+    right: 20,
+    bottom: 450
+  },
   menuItem: {
-    margin: 10
+    margin: 1,
+    padding: 10
   }
 });
 

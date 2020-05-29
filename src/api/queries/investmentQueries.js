@@ -74,3 +74,25 @@ export const getAllInvestmentsQuery = gql`
     }
   }
 `;
+
+export const getInvestmentQuery = gql`
+  query getInvestment($id: String!) {
+    getInvestment(id: $id) {
+      name
+      matureDate
+      initialAmount
+      targetAmount
+      id
+      createdAt
+      pictureUrl
+      expenses {
+        type
+        quantity
+        price
+        id
+        createdAt
+        parentId
+      }
+    }
+  }
+`;

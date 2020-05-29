@@ -46,7 +46,6 @@ const MoreButton = props => {
   };
 
   const handleViewExpenses = () => {
-    console.log("ain't you being pressed?");
     setDisplayMenuBtn(!displayMenuBtn);
     navigate('Expenses', { id });
   };
@@ -81,6 +80,7 @@ const MoreButton = props => {
           >
             <Text>Add expenses</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => handleViewExpenses()}
             style={styles.menuItem}
@@ -89,7 +89,10 @@ const MoreButton = props => {
           </TouchableOpacity>
         </View>
       ) : (
-        <TouchableOpacity onPress={() => setDisplayMenuBtn(!displayMenuBtn)}>
+        <TouchableOpacity
+          onPress={() => setDisplayMenuBtn(!displayMenuBtn)}
+          style={styles.menuDisplay}
+        >
           <Feather
             name="more-vertical"
             size={30}

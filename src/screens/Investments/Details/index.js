@@ -71,6 +71,7 @@ export const Details = props => {
           <MaterialIcons name="edit" size={30} color="white" />
         </TouchableOpacity>
       </View>
+      <MoreButton navigation={navigation} />
     </View>
   );
 };
@@ -78,7 +79,7 @@ export const Details = props => {
 Details.navigationOptions = ({ navigation }) => ({
   headerTransparent: true,
   headerTintColor: 'white',
-  headerRight: <MoreButton navigation={navigation} />
+  headerRight: null
 });
 
 export default Details;
