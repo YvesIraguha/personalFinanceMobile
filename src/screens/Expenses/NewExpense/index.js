@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { View, ImageBackground, TouchableOpacity } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import imageUrl from '../../../assets/expense.jpeg';
@@ -14,6 +14,14 @@ const NewExpenseScreen = ({ navigation }) => {
   const onInputChange = (field, value) => {
     setExpense({ ...expense, [field]: value });
   };
+  useEffect(() => {
+    const {
+      state: {
+        params: { id }
+      }
+    } = navigation;
+    setExpense({ ...expense, parentId: id });
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setParams(expense);

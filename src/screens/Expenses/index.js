@@ -17,10 +17,20 @@ import HeaderLeft from './components/HeaderLeft';
 import noData from '../../assets/undraw_empty_xct9.png';
 
 import { getAllExpensesQuery } from '../../api/queries/expensesQueries';
+import { getInvestmentQuery } from '../../api/queries/investmentQueries';
 
 const Home = props => {
+  const {
+    navigation: {
+      state: { params }
+    }
+  } = props;
+
+  const query = params && params.id ? getInvestmentQuery : getAllExpensesQuery;
   const [profileAvatar, setProfileAvatar] = useState(null);
-  const { loading, data } = useQuery(getAllExpensesQuery);
+  const { loading, data } = useQuery(query, {
+    variables: { id: params && params.id ? params.id : null }
+  });
 
   const fetchProfile = async () => {
     const { picture } = await getProfileImage();
@@ -36,6 +46,12 @@ const Home = props => {
     navigation.setParams({ profileAvatar });
   }, [profileAvatar]);
 
+  const cleanData = () => {
+    if (params && params.id) {
+      return data.getInvestment.expenses;
+    }
+    return data.getAllExpenses;
+  };
   const { navigation } = props;
 
   return (
@@ -43,7 +59,7 @@ const Home = props => {
       <View style={styles.container}>
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
-        ) : !data.getAllExpenses.length ? (
+        ) : !cleanData().length ? (
           <View style={styles.emptyContainer}>
             <Image source={noData} style={styles.empty} resizeMode="contain" />
             <Text style={styles.emptyText}>Your expenses bucket is empty</Text>
@@ -51,7 +67,7 @@ const Home = props => {
         ) : (
           <View>
             <SectionList
-              sections={normalizeData(data.getAllExpenses)}
+              sections={normalizeData(cleanData())}
               renderItem={({ item }) => (
                 <Expense item={item} navigation={navigation} />
               )}

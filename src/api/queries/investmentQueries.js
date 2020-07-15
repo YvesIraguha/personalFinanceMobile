@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const deleteInvestmentQuery = gql`
   mutation deletedInvestment($id: String!) {
@@ -71,6 +71,28 @@ export const getAllInvestmentsQuery = gql`
       id
       createdAt
       pictureUrl
+    }
+  }
+`;
+
+export const getInvestmentQuery = gql`
+  query getInvestment($id: String!) {
+    getInvestment(id: $id) {
+      name
+      matureDate
+      initialAmount
+      targetAmount
+      id
+      createdAt
+      pictureUrl
+      expenses {
+        type
+        quantity
+        price
+        id
+        createdAt
+        parentId
+      }
     }
   }
 `;

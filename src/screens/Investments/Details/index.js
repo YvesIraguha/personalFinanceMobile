@@ -1,18 +1,19 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect } from 'react';
 import {
   View,
   Text,
   ImageBackground,
   TouchableOpacity,
   StatusBar
-} from "react-native";
+} from 'react-native';
 
-import { MaterialIcons } from "@expo/vector-icons";
-import imageUrl from "../../../assets/expense.jpeg";
-import Item from "./Components/Item";
-import styles from "./styles";
-import { convertToReadableDate } from "../../../helpers/utils";
-import MoreButton from "./Components/DeleteButton";
+import { MaterialIcons } from '@expo/vector-icons';
+import imageUrl from '../../../assets/expense.jpeg';
+import Item from './Components/Item';
+import styles from './styles';
+import { convertToReadableDate } from '../../../helpers/utils';
+import MoreButton from './Components/IvstmentActions';
+import AddExpenseButton from '../../Expenses/components/AddExpense';
 
 export const Details = props => {
   const {
@@ -34,7 +35,7 @@ export const Details = props => {
   } = props;
 
   const navigateToEditScreen = () => {
-    navigation.navigate("EditScreen", params);
+    navigation.navigate('EditScreen', params);
   };
 
   useLayoutEffect(() => {
@@ -57,20 +58,28 @@ export const Details = props => {
         <Item title="Invested amount" value={`${initialAmount} RWF`} />
         <Item title="Target amount" value={`${price} RWF`} />
       </View>
-      <TouchableOpacity
-        style={styles.editButton}
-        onPress={navigateToEditScreen}
-      >
-        <MaterialIcons name="edit" size={30} color="white" />
-      </TouchableOpacity>
+      <View>
+        <AddExpenseButton
+          navigation={navigation}
+          target={'NewExpense'}
+          id={id}
+        />
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={navigateToEditScreen}
+        >
+          <MaterialIcons name="edit" size={30} color="white" />
+        </TouchableOpacity>
+      </View>
+      <MoreButton navigation={navigation} />
     </View>
   );
 };
 
 Details.navigationOptions = ({ navigation }) => ({
   headerTransparent: true,
-  headerTintColor: "white",
-  headerRight: <MoreButton navigation={navigation} />
+  headerTintColor: 'white',
+  headerRight: null
 });
 
 export default Details;

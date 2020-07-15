@@ -1,14 +1,12 @@
-import React from "react";
-import { TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import styles from "./styles";
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import styles from './styles';
 
-const AddExpense = (props) => {
-  const { navigation } = props;
-
+const AddExpense = ({ navigation, id }) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("NewExpense")}
+      onPress={() => navigation.navigate('NewExpense', { id })}
       style={styles.addExpense}
     >
       <Ionicons name="ios-add" size={30} color="white" />

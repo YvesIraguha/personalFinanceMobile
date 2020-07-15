@@ -8,7 +8,6 @@ import {
   Image
 } from 'react-native';
 import { useLazyQuery } from '@apollo/react-hooks';
-
 import { getAllInvestmentsQuery } from '../../api/queries/investmentQueries';
 import { getProfileImage } from '../../helpers/utils';
 import styles from './styles';
@@ -25,7 +24,7 @@ const InvestmentList = props => {
       state: { params: { startDate, endDate } = {} }
     }
   } = props;
-  const [getInvestments, { loading, data }] = useLazyQuery(
+  const [getInvestments, { loading, data, error }] = useLazyQuery(
     getAllInvestmentsQuery,
     {
       variables: { startDate, endDate }
@@ -80,6 +79,7 @@ const InvestmentList = props => {
           </View>
         )}
       </View>
+
       <AddInvestment navigation={navigation} />
     </View>
   );
