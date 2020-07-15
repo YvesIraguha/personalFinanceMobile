@@ -6,10 +6,10 @@ import Item from './Components/ExpenseProperty';
 import styles from './styles';
 import { convertToReadableDate } from '../../../helpers/utils';
 import SaveButton from './Components/SaveButton';
-import useKeboardListener from '../../customHooks/keyboardListerner';
+import useKeyboardListener from '../../customHooks/keyboardListerner';
 
 const EditScreen = ({ navigation }) => {
-  const [imageHeight, keyboardHeight] = useKeboardListener();
+  const [imageHeight, keyboardHeight] = useKeyboardListener();
   const [investment, setInvestment] = useState({});
   const onInputChange = (field, value) => {
     setInvestment({ ...investment, [field]: value });
@@ -25,7 +25,8 @@ const EditScreen = ({ navigation }) => {
           createdAt: time,
           pictureUrl,
           id,
-          matureDate
+          matureDate,
+          status
         }
       }
     } = navigation;
@@ -36,6 +37,7 @@ const EditScreen = ({ navigation }) => {
       maturityDate: convertToReadableDate(matureDate),
       targetAmount: `${price}`,
       pictureUrl,
+      status,
       initialAmount: `${initialAmount}`
     });
   }, []);
@@ -58,6 +60,12 @@ const EditScreen = ({ navigation }) => {
         </TouchableOpacity>
       </ImageBackground>
       <View style={[styles.itemsContainer]}>
+        <Item
+          title="Status"
+          name="status"
+          value={investment.status}
+          onTextChange={onInputChange}
+        />
         <Item
           title="Name"
           name="name"

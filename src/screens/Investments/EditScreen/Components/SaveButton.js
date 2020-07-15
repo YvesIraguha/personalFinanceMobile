@@ -1,20 +1,15 @@
-import React from "react";
-import { Button } from "react-native";
-import { useMutation } from "@apollo/react-hooks";
+import React from 'react';
+import { Button } from 'react-native';
+import { useMutation } from '@apollo/react-hooks';
 import {
   editInvestmentQuery,
   getAllInvestmentsQuery
-} from "../../../../api/queries/investmentQueries";
-import styles from "./styles";
+} from '../../../../api/queries/investmentQueries';
+import styles from './styles';
 
 const SaveButton = props => {
   const [editInvestment, { loading }] = useMutation(editInvestmentQuery, {
-    update(
-      cache,
-      {
-        data: { updateInvestment }
-      }
-    ) {
+    update(cache, { data: { updateInvestment } }) {
       const { getAllInvestments } = cache.readQuery({
         query: getAllInvestmentsQuery
       });
@@ -39,16 +34,17 @@ const SaveButton = props => {
   } = props;
 
   const handleInvestmentEditing = () => {
-    const { name, initialAmount, targetAmount, id } = investment;
+    const { name, initialAmount, targetAmount, id, status } = investment;
     editInvestment({
       variables: {
         name,
         initialAmount: parseInt(initialAmount, 10),
         targetAmount: parseInt(targetAmount, 10),
+        status,
         id
       }
     });
-    navigate("Investments");
+    navigate('Investments');
   };
   return (
     <Button

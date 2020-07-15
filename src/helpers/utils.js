@@ -26,3 +26,13 @@ export const getProfileImage = async () => {
   const profile = await JSON.parse(profilePicture);
   return profile;
 };
+
+export const convertStatusToIcon = status => {
+  if (status.toLowerCase() === 'paid') {
+    return { name: 'check', color: 'green' };
+  }
+  if (status.toLowerCase() === 'active') {
+    return { name: 'infocirlceo', color: '#8E20E3' };
+  }
+  return { name: 'infocirlceo', color: 'red' };
+};

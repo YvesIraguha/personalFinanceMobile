@@ -1,18 +1,18 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect } from 'react';
 import {
   View,
   Text,
   ImageBackground,
   TouchableOpacity,
   StatusBar
-} from "react-native";
+} from 'react-native';
 
-import { MaterialIcons } from "@expo/vector-icons";
-import imageUrl from "../../../assets/expense.jpeg";
-import Item from "./Components/Item";
-import styles from "./styles";
-import { convertToReadableDate } from "../../../helpers/utils";
-import MoreButton from "./Components/DeleteButton";
+import { MaterialIcons } from '@expo/vector-icons';
+import imageUrl from '../../../assets/expense.jpeg';
+import Item from './Components/Item';
+import styles from './styles';
+import { convertToReadableDate } from '../../../helpers/utils';
+import MoreButton from './Components/DeleteButton';
 
 export const Details = props => {
   const {
@@ -27,14 +27,15 @@ export const Details = props => {
           matureDate,
           initialAmount,
           pictureUrl,
-          id
+          id,
+          status
         }
       }
     }
   } = props;
 
   const navigateToEditScreen = () => {
-    navigation.navigate("EditScreen", params);
+    navigation.navigate('EditScreen', params);
   };
 
   useLayoutEffect(() => {
@@ -56,6 +57,7 @@ export const Details = props => {
         <Item title="Maturity date" value={convertToReadableDate(matureDate)} />
         <Item title="Invested amount" value={`${initialAmount} RWF`} />
         <Item title="Target amount" value={`${price} RWF`} />
+        <Item title="Status" value={status} />
       </View>
       <TouchableOpacity
         style={styles.editButton}
@@ -69,7 +71,7 @@ export const Details = props => {
 
 Details.navigationOptions = ({ navigation }) => ({
   headerTransparent: true,
-  headerTintColor: "white",
+  headerTintColor: 'white',
   headerRight: <MoreButton navigation={navigation} />
 });
 
