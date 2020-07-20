@@ -1,12 +1,25 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { View, ImageBackground, TouchableOpacity } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
+import { Dropdown } from 'react-native-material-dropdown';
 import imageUrl from '../../../assets/expense.jpeg';
 import Item from './Components/ExpenseProperty';
 import styles from './styles';
 import { convertToReadableDate } from '../../../helpers/utils';
 import SaveButton from './Components/SaveButton';
 import useKeyboardListener from '../../customHooks/keyboardListerner';
+
+const data = [
+  {
+    value: 'active'
+  },
+  {
+    value: 'late'
+  },
+  {
+    value: 'paid'
+  }
+];
 
 const EditScreen = ({ navigation }) => {
   const [imageHeight, keyboardHeight] = useKeyboardListener();
@@ -60,11 +73,12 @@ const EditScreen = ({ navigation }) => {
         </TouchableOpacity>
       </ImageBackground>
       <View style={[styles.itemsContainer]}>
-        <Item
-          title="Status"
-          name="status"
-          value={investment.status}
-          onTextChange={onInputChange}
+        <Dropdown
+          label="Status"
+          data={data}
+          onChangeText={value => {
+            onInputChange('status', value);
+          }}
         />
         <Item
           title="Name"
