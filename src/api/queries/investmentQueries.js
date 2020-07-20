@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const deleteInvestmentQuery = gql`
   mutation deletedInvestment($id: String!) {
@@ -12,12 +12,14 @@ export const editInvestmentQuery = gql`
   mutation updateInvestment(
     $id: String!
     $name: String
+    $status: String
     $initialAmount: Int
     $targetAmount: Int
   ) {
     updateInvestment(
       id: $id
       name: $name
+      status: $status
       initialAmount: $initialAmount
       targetAmount: $targetAmount
     ) {
@@ -25,6 +27,7 @@ export const editInvestmentQuery = gql`
       initialAmount
       targetAmount
       id
+      status
       matureDate
       pictureUrl
       createdAt
@@ -71,6 +74,7 @@ export const getAllInvestmentsQuery = gql`
       id
       createdAt
       pictureUrl
+      status
     }
   }
 `;
